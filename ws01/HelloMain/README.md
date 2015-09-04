@@ -1,0 +1,1 @@
+This is the main program to be linked to the Hello library (libHello.a).
