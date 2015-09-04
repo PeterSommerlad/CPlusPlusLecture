@@ -1,0 +1,1 @@
+This is a C++ library project to be used by HelloTest and HelloMain.
