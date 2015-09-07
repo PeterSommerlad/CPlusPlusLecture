@@ -1,4 +1,4 @@
-*Never* ever program this way, it shows how bool converts to an int and thus
+**Never** ever program this way, it shows how bool converts to an int and thus
 make combining several relational operators in a syntactically valid expression,
 which is always not what a naive programmer would expect. 
 
