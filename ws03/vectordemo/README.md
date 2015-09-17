@@ -1,0 +1,1 @@
+*vectordemo.cpp* shows different means to iterate over a C++ standard container. However, you should always prefer a standard algorith instead, if one is available for your problem.

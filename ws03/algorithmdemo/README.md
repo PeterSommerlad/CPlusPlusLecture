@@ -1,0 +1,1 @@
+This program demonstrates various algorithms from the C++ standard library using `std::vector<int>`.
