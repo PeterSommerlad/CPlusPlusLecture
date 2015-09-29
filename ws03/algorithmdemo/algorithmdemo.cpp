@@ -61,8 +61,8 @@ void generate_find_demo(){
 
 int main(){
 	std::string s{"A journey of a thousand miles begins with a single step"};
-	std::cout << count(s.begin(),s.end(),' ') << " blanks\n";
-	std::cout << "distance: "<< distance(s.begin(),s.end()) <<'\n';
+	std::cout << count(begin(s),end(s),' ') << " blanks\n";
+	std::cout << "distance: "<< distance(begin(s),end(s)) <<'\n';
 	std::cout << "in a string of length: "<< s.size()<<'\n';
 	std::cout << count_blanks(s) << " blanks\n";
 
