@@ -9,7 +9,7 @@ int main() {
 	          << std::dec << 42 << '\n';
 	std::cout << std::setw(10) << 42
 	          << std::left<< std::setw(5)<< 43 << "*\n";
-	std::cout << std::setw(1) << "hallo"<<"*\n";
+	std::cout << std::setw(10) << "hallo"<<"*\n";
 
 	double const pi{std::acos(0.5)*3};
 	std::cout << std::setprecision(4) << pi << '\n';
