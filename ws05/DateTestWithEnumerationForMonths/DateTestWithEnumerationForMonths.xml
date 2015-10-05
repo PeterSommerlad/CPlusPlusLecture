@@ -1,0 +1,37 @@
+<testsuites>
+	<testsuite name="AllTests" tests="33">
+		<testcase classname="AllTests" name="testPrintADate"/>
+		<testcase classname="AllTests" name="testPrintADateDoesntChangeFillChar"/>
+		<testcase classname="AllTests" name="testIsValidYearLowerBoundary"/>
+		<testcase classname="AllTests" name="testIsValidYearUpperBoundary"/>
+		<testcase classname="AllTests" name="testIsLeapYear"/>
+		<testcase classname="AllTests" name="testIsValidDateValid"/>
+		<testcase classname="AllTests" name="testIsValidDateInValid"/>
+		<testcase classname="AllTests" name="testDateCtorThrowsIfInvalid"/>
+		<testcase classname="AllTests" name="testNextDaySimple"/>
+		<testcase classname="AllTests" name="testNextDayEndOfMonth"/>
+		<testcase classname="AllTests" name="testNextDayEndOfShortMonth"/>
+		<testcase classname="AllTests" name="testNextDayEndOfFeburary"/>
+		<testcase classname="AllTests" name="testNextDayEndOfFeburaryNonLeapYear"/>
+		<testcase classname="AllTests" name="testNextDayNotEndOfFeburaryInLeapYear"/>
+		<testcase classname="AllTests" name="testNextDayEndOfYear"/>
+		<testcase classname="AllTests" name="testNextDayEndOfLastAllowedYear"/>
+		<testcase classname="AllTests" name="testDateBuildIn"/>
+		<testcase classname="AllTests" name="testDateLessThanAdjacentDates"/>
+		<testcase classname="AllTests" name="testDateLessThanYearOff"/>
+		<testcase classname="AllTests" name="testDateLessThanMonthOff"/>
+		<testcase classname="AllTests" name="testDateGreaterThan"/>
+		<testcase classname="AllTests" name="testDateGreaterThanOrEqual"/>
+		<testcase classname="AllTests" name="testDateLessThanOrEqual"/>
+		<testcase classname="AllTests" name="testDateEqual"/>
+		<testcase classname="AllTests" name="testDateInEqual"/>
+		<testcase classname="AllTests" name="testDateReadValidDates"/>
+		<testcase classname="AllTests" name="testDateReadShortYear"/>
+		<testcase classname="AllTests" name="testDateReadInvalidYear"/>
+		<testcase classname="AllTests" name="testDateReadYYYYMMDD"/>
+		<testcase classname="AllTests" name="testDateReadInValidDates"/>
+		<testcase classname="AllTests" name="testMakeDateYYYYMMDD"/>
+		<testcase classname="AllTests" name="testDefaultDate"/>
+		<testcase classname="AllTests" name="testDefinitionsOnly"/>
+	</testsuite>
+</testsuites>
