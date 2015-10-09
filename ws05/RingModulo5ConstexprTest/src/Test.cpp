@@ -104,6 +104,17 @@ static_assert(Ring5{2}==7_R5,"UDL operator");
 
 static_assert(2==2_R5,"explicit UDL operator worked");
 
+constexpr auto
+demoLocalModifyingConstexpr(Ring5 in){
+	Ring5 r{in};
+	r += 2_R5;
+	r *= 2_R5;
+	return r;
+}
+
+static_assert(4_R5==demoLocalModifyingConstexpr(0_R5),"should be 4");
+static_assert(1_R5==demoLocalModifyingConstexpr(1_R5),"should be 1");
+static_assert(3_R5==demoLocalModifyingConstexpr(2_R5),"should be 3");
 
 
 void runAllTests(int argc, char const *argv[]){

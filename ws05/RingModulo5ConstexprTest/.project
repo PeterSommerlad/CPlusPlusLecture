@@ -3,7 +3,7 @@
 	<name>RingModulo5ConstexprTest</name>
 	<comment></comment>
 	<projects>
-		<project>RingModulo5InOutConversion</project>
+		<project>RingModulo5Constexpr</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

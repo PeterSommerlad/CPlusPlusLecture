@@ -19,11 +19,11 @@ struct Ring5 {
 	constexpr bool operator!=(Ring5 const &r) const {
 		return !(*this == r);
 	}
-	Ring5 operator+=(Ring5 const &r) {
+	constexpr Ring5 operator+=(Ring5 const &r) {
 		val = (val + r.value()) % 5;
 		return *this;
 	}
-	Ring5 operator*=(Ring5 const&r) {
+	constexpr Ring5 operator*=(Ring5 const&r) {
 		val = (val * r.value()) % 5;
 		return *this;
 	}
