@@ -39,20 +39,18 @@ std::vector<int> vectorwithsquares_functor(){
 }
 std::vector<int> vectorwithsquares_mutable_lambda(){
 	std::vector<int> v;
-	int x{}; // memory for lambda below
-	generate_n(std::back_inserter(v),10,[x]() mutable {
+	generate_n(std::back_inserter(v),10,[x=0]() mutable { // capture with initializer
 		return ++x , x*x; // mutable allows change
 	});
 	return v;
 }
-
 
 struct DemoLambdaMemberVariables {
 	int x{};
 	std::vector<int> demoAccessingMemberFromLambda() {
 		std::vector<int> v;
 		generate_n(back_inserter(v),10,[=] {
-			return ++x, x*x; // member x can be changed
+			return ++x, x*x; // member x can be changed, this is captured
 		});
 		return v;
 	}

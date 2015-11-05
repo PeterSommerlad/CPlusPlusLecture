@@ -17,7 +17,7 @@ void print(std::vector<int> v, std::ostream& out){
 void demosort(std::ostream &out){
 	std::vector<int> v{-1,2,-5,3,-4,-2};
 	print(v,out);
-	sort(v.begin(),v.end(),std::greater<int>{});
+	sort(v.begin(),v.end(),std::greater<>{});
 	print(v,out);
 }
 

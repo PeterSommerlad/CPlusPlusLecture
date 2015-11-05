@@ -5,7 +5,6 @@
 #include <algorithm>
 #include <iterator>
 #include <iostream>
-#include <functional>
 
 struct odd{
 	bool operator()(int n)const{return n%2;}
@@ -22,9 +21,8 @@ int main(){
 		 out);
 	std::cout << '\n';
 	using boost::make_transform_iterator;
-	using std::placeholders::_1;
-	auto sq=bind(std::multiplies<int>{},_1,_1);
-	copy(make_transform_iterator(v.begin(),sq),
-		 make_transform_iterator(v.end(),sq),
+	auto square=[](auto x){ return x*x;};
+	copy(make_transform_iterator(v.begin(),square),
+		 make_transform_iterator(v.end(),square),
          out);
 }

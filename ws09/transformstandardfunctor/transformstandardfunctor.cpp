@@ -24,7 +24,7 @@ void demotransform(std::ostream& out){
 			  v.begin(),std::negate<int>{});
 	print(v,out);
 	transform(v.begin(),v.end(),v.begin(),
-			  v.begin(),std::multiplies<int>{});
+			  v.begin(),std::multiplies<>{});
 	print(v,out);
 
 }

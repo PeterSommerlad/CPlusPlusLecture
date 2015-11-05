@@ -27,7 +27,7 @@ struct caseless{
 
 
 int main(){
-	std::set<int,std::greater<int>> reverse_int_set{};
+	std::set<int,std::greater<>> reverse_int_set{};
 
 
 
