@@ -22,7 +22,7 @@ int main() {
 	using std::placeholders::_1;
 	wordmap words;
 	std::string s;
-	while (std::cin >> s && s != ".")
+	while (bool(std::cin >> s) && s != ".")
 		++words[s];
 	std::cout << "done reading"<< std::endl;
 
