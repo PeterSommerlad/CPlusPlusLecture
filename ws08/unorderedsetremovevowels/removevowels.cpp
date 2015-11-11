@@ -7,5 +7,5 @@ int main(){
   using in=std::istreambuf_iterator<char>;
   using out=std::ostreambuf_iterator<char>;
   remove_copy_if(in{std::cin},in{},out{std::cout},
-		         [&](char c){return vwl.count(c);});
+		         [vwl](char c){return vwl.count(c);});
 }

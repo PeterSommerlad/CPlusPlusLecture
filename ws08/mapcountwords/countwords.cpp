@@ -4,7 +4,7 @@
 int main(){
 	std::map<std::string,size_t> words;
 	std::string s;
-	while (std::cin >> s)
+	while (std::cin >> s && s != ".")
 			++words[s];
 	for(auto const &p:words)
 		std::cout << p.first << " = "<< p.second << '\n';
