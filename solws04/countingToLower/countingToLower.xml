@@ -1,0 +1,10 @@
+<testsuites>
+	<testsuite name="AllTests" tests="6">
+		<testcase classname="AllTests" name="lowerFirstCharacter"/>
+		<testcase classname="AllTests" name="lowerSeveralCharacters"/>
+		<testcase classname="AllTests" name="lowerNone"/>
+		<testcase classname="AllTests" name="lowerAll"/>
+		<testcase classname="AllTests" name="lowerEmpty"/>
+		<testcase classname="AllTests" name="umlautsAreNotChanged"/>
+	</testsuite>
+</testsuites>
