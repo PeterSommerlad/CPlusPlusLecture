@@ -39,7 +39,3 @@ int main(){
 	foo(Tracer{m.out,"temp"});
 	m.show();
 }
-
-
-
-
