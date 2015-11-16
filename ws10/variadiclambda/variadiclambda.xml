@@ -1,0 +1,10 @@
+<testsuites>
+	<testsuite name="AllTests" tests="2">
+		<testcase classname="AllTests" name="testvariadiclambdawithint">
+			<failure message="../src/Test.cpp:9 testvariadiclambdawithint: 70 == multby(7) expected:	70	but was:	7	">
+testvariadiclambdawithint: 70 == multby(7) expected:	70	but was:	7	
+			</failure>
+		</testcase>
+		<testcase classname="AllTests" name="testvariadiclambdawithdouble"/>
+	</testsuite>
+</testsuites>
