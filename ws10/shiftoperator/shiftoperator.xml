@@ -1,0 +1,9 @@
+<testsuites>
+	<testsuite name="AllTests" tests="1">
+		<testcase classname="AllTests" name="thisIsATest">
+			<failure message="../src/Test.cpp:11 thisIsATest: 0 == i expected:	0	but was:	1	">
+thisIsATest: 0 == i expected:	0	but was:	1	
+			</failure>
+		</testcase>
+	</testsuite>
+</testsuites>

@@ -11,11 +11,11 @@ int main(){
 	cout << "min(e,pi) = " << min(e,pi) << '\n';
 	std::string s1 = "Hallo";
 	std::string s2 = "Hallihallo";
-	cout << "min(Hallo,Hallihallo) = " << MyMin::min(s1,s2)<<'\n';
+	cout << "min(Hallo,Hallihallo) = " << std::min(s1,s2)<<'\n';
 	//min(2,pi); // compile error
 	min(static_cast<double>(2),pi);
 	min<double>(2,pi);
 	//cout << "min(Peter,Toni) = " << min("Peter","Toni") << '\n';
-	cout << "min(Pete,Toni) = " << min("Pete","Toni") << '\n';
+	cout << "min(Pete,Toni) = " << min("Peter","Toni") << '\n';
 	void MyMaxTest(std::ostream &);MyMaxTest(std::cout);
 }

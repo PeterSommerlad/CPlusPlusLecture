@@ -27,7 +27,7 @@ void variadic(ARGS... args){
 
 void testVariadicPrint(){
 	std::ostringstream out{};
-	println(out,1,2,3,"hello",' ',"world");
+	println(out,1,2,3,"hello",' ',"wrld");
 	ASSERT_EQUAL("1, 2, 3, hello,  , world\n",out.str());
 }
 void showVariadic(){
