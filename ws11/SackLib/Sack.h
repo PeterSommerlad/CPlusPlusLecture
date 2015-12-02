@@ -1,7 +1,7 @@
 #ifndef SACK_H_
 #define SACK_H_
 #include <vector> // implementation detail, might change...
-#include <cstdlib>
+#include <random>
 #include <stdexcept>
 template <typename T>
 class Sack
@@ -9,6 +9,7 @@ class Sack
 	using SackType=std::vector<T>;
 	using size_type=typename SackType::size_type;
 	SackType theSack{};
+	std::mt19937 rand{std::random_device{}()};
 public:
 	bool empty() const { return theSack.empty() ; }
 	size_type size() const { return theSack.size();}
@@ -23,7 +24,7 @@ public:
 template <typename T>
 inline T Sack<T>::getOut(){
 		if (! size()) throw std::logic_error{"empty Sack"};
-		auto index = static_cast<size_type>(rand()%size()); // rand() from cstdlib
+		auto index = static_cast<size_type>(rand()%size()); // rand() from random
 		T retval{theSack.at(index)};
 		theSack.erase(theSack.begin()+index);
 		return retval;
