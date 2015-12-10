@@ -32,6 +32,7 @@ Debug
 .metadata/
 .settings/
 *Test.xml
+.*.html
 
 # Mac OS Meta Files
 .DS_Store

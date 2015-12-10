@@ -1,0 +1,13 @@
+<testsuites>
+	<testsuite name="AllTests" tests="9">
+		<testcase classname="AllTests" name="test_module_nodeps"/>
+		<testcase classname="AllTests" name="test_module_deps"/>
+		<testcase classname="AllTests" name="test_deep_name_comare"/>
+		<testcase classname="AllTests" name="testinput"/>
+		<testcase classname="AllTests" name="testLevel1"/>
+		<testcase classname="AllTests" name="testLevel2"/>
+		<testcase classname="AllTests" name="testLevel3"/>
+		<testcase classname="AllTests" name="testLevel4"/>
+		<testcase classname="AllTests" name="testLevel5"/>
+	</testsuite>
+</testsuites>

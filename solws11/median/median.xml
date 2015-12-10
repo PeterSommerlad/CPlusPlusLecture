@@ -1,0 +1,9 @@
+<testsuites>
+	<testsuite name="AllTests" tests="5">
+		<testcase classname="AllTests" name="testmedianDouble"/>
+		<testcase classname="AllTests" name="testmedianIntRightValue"/>
+		<testcase classname="AllTests" name="testmedianString"/>
+		<testcase classname="AllTests" name="testmedianCharPtr"/>
+		<testcase classname="AllTests" name="testmedianAllIntPermutations"/>
+	</testsuite>
+</testsuites>

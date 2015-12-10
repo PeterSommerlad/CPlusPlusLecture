@@ -1,0 +1,17 @@
+<testsuites>
+	<testsuite name="AllTests" tests="13">
+		<testcase classname="AllTests" name="defaultconstructdynArray"/>
+		<testcase classname="AllTests" name="initializerlistconstructeddynArrayisNotEmpty"/>
+		<testcase classname="AllTests" name="rangeconstructeddynArray"/>
+		<testcase classname="AllTests" name="sequencecontainerfunctions"/>
+		<testcase classname="AllTests" name="const_iterator_functions"/>
+		<testcase classname="AllTests" name="nonconst_iterator_functions"/>
+		<testcase classname="AllTests" name="reverse_iterator_functions"/>
+		<testcase classname="AllTests" name="nonconst_reverse_iterator_functions"/>
+		<testcase classname="AllTests" name="const_iterator_functions_availability"/>
+		<testcase classname="AllTests" name="resizeAvailable"/>
+		<testcase classname="AllTests" name="makedynArrayFactory"/>
+		<testcase classname="AllTests" name="n_times_value_constructeddynArray"/>
+		<testcase classname="AllTests" name="testtwoparaemterconstructorambiguity"/>
+	</testsuite>
+</testsuites>
