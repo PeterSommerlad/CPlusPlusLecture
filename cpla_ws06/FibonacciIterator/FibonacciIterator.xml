@@ -1,0 +1,23 @@
+<testsuites>
+	<testsuite name="AllTests" tests="19">
+		<testcase classname="AllTests" name="test_default_constructed_iterator_returns_zero"/>
+		<testcase classname="AllTests" name="test_fibonacci_iterator_for_first_element_is_one"/>
+		<testcase classname="AllTests" name="test_fibonacci_iterator_for_second_element_is_one"/>
+		<testcase classname="AllTests" name="test_fibonacci_iterator_for_third_element_is_two"/>
+		<testcase classname="AllTests" name="test_fibonacci_iterator_for_fourth_element_is_three"/>
+		<testcase classname="AllTests" name="test_fibonacci_iterator_for_fifth_element_is_five"/>
+		<testcase classname="AllTests" name="test_fibonacci_iterator_for_sixth_element_is_eight"/>
+		<testcase classname="AllTests" name="test_fibonacci_iterator_for_seventh_element_is_thirteen"/>
+		<testcase classname="AllTests" name="test_fibonacci_iterator_for_eighth_element_is_twentyone"/>
+		<testcase classname="AllTests" name="test_fibonacci_iterator_for_ninth_element_is_thirtyfour"/>
+		<testcase classname="AllTests" name="test_fibonacci_iterator_for_tenth_element_is_fiftyfive"/>
+		<testcase classname="AllTests" name="test_fibonacci_iterator_equal_to_itself"/>
+		<testcase classname="AllTests" name="test_fibonacci_iterator_equal_to_other_fibonacci_iterator_with_same_state"/>
+		<testcase classname="AllTests" name="test_fibonacci_iterator_not_equal_to_other_fibonacci_iterator_with_another_state"/>
+		<testcase classname="AllTests" name="test_prefix_incrementing_default_fibonacci_iterator_increments_this_fibonacci_iterator"/>
+		<testcase classname="AllTests" name="test_prefix_incrementing_default_fibonacci_iterator_returns_changed_fibonacci_iterator"/>
+		<testcase classname="AllTests" name="test_postfix_incrementing_default_fibonacci_iterator_increments_this_fibonacci_iterator"/>
+		<testcase classname="AllTests" name="test_postfix_incrementing_default_fibonacci_iterator_returns_previous_value_fibonacci_iterator"/>
+		<testcase classname="AllTests" name="test_postfix_incrementing_default_fibonacci_iterator_returns_new_fibonacci_iterator"/>
+	</testsuite>
+</testsuites>
