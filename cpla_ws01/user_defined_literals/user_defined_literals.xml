@@ -1,0 +1,7 @@
+<testsuites>
+	<testsuite name="AllTests" tests="3">
+		<testcase classname="AllTests" name="test_kmh_operator"/>
+		<testcase classname="AllTests" name="test_mph_operator"/>
+		<testcase classname="AllTests" name="test_kmh_operator_integral"/>
+	</testsuite>
+</testsuites>
