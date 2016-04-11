@@ -1,0 +1,11 @@
+<testsuites>
+	<testsuite name="AllTests" tests="7">
+		<testcase classname="AllTests" name="test_stack_allocation_works"/>
+		<testcase classname="AllTests" name="test_heap_allocation_throws"/>
+		<testcase classname="AllTests" name="test_heap_alloction_of_array_throws"/>
+		<testcase classname="AllTests" name="test_vector_still_works"/>
+		<testcase classname="AllTests" name="test_with_make_unique"/>
+		<testcase classname="AllTests" name="test_with_make_shared"/>
+		<testcase classname="AllTests" name="test_static_allocation_works"/>
+	</testsuite>
+</testsuites>
