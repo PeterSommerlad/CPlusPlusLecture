@@ -1,0 +1,8 @@
+<testsuites>
+	<testsuite name="AllTests" tests="4">
+		<testcase classname="AllTests" name="testFizzBuzzSequenceUpTo16"/>
+		<testcase classname="AllTests" name="fizzBuzzSingle1"/>
+		<testcase classname="AllTests" name="FizzBuzzSingleFizz"/>
+		<testcase classname="AllTests" name="FizzBuzzSingleBuzz"/>
+	</testsuite>
+</testsuites>

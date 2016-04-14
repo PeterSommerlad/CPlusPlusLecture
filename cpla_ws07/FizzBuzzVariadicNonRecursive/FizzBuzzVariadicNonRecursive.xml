@@ -1,0 +1,11 @@
+<testsuites>
+	<testsuite name="AllTests" tests="7">
+		<testcase classname="AllTests" name="testFizzBuzzNumberOne"/>
+		<testcase classname="AllTests" name="testFizzBuzzNumberTwo"/>
+		<testcase classname="AllTests" name="testFizzBuzzNumberThree"/>
+		<testcase classname="AllTests" name="testFizzBuzzNumberFive"/>
+		<testcase classname="AllTests" name="testFizzBuzzNumberFifteen"/>
+		<testcase classname="AllTests" name="testFizzBuzzSequenceUpTo16"/>
+		<testcase classname="AllTests" name="testFizzBuzzPrinting"/>
+	</testsuite>
+</testsuites>
