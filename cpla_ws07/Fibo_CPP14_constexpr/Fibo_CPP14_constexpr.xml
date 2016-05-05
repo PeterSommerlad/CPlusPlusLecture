@@ -1,0 +1,9 @@
+<testsuites>
+	<testsuite name="AllTests" tests="1">
+		<testcase classname="AllTests" name="thisIsATest">
+			<failure message="../src/Test.cpp:46 thisIsATest: check(std::integral_constant&lt;int,-1&gt;())">
+thisIsATest: check(std::integral_constant&lt;int,-1&gt;())
+			</failure>
+		</testcase>
+	</testsuite>
+</testsuites>

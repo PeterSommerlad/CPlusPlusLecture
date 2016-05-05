@@ -15,11 +15,12 @@ template <>
 struct fact<0>{
 	static size_t const value=1;
 };
-
 int a[fact<5>::value]; // check compile-time constant
 
 void testFactorialCompiletime() {
+	size_t  x = fact<4>::value;
 	ASSERT_EQUAL(sizeof(a),sizeof(int)*2*3*4*5);
+	ASSERT_EQUAL(x,24);
 }
 
 void runAllTests(int argc, char const *argv[]){

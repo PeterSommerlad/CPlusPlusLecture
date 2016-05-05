@@ -11,7 +11,7 @@ struct fact<0>{
 	static unsigned const value=1;
 };
 template <unsigned n>
-constexpr unsigned long long fac={n*fac<n-1>};
+constexpr unsigned long long fac{n*fac<n-1>};
 template <>
 constexpr unsigned long long fac<0>{1};
 

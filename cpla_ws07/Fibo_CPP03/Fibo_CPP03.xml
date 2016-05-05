@@ -1,0 +1,10 @@
+<testsuites>
+	<testsuite name="AllTests" tests="6">
+		<testcase classname="AllTests" name="testFibo0_is_0"/>
+		<testcase classname="AllTests" name="testFibo1_is_1"/>
+		<testcase classname="AllTests" name="testFibo2_is_1"/>
+		<testcase classname="AllTests" name="testFibo3_is_2"/>
+		<testcase classname="AllTests" name="testFibo10_is_55"/>
+		<testcase classname="AllTests" name="testFibo46_is_X"/>
+	</testsuite>
+</testsuites>
