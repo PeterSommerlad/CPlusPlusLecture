@@ -92,7 +92,6 @@ void test_element_in_moved_queue_is_destroyed_once() {
 
 		BoundedQueue<NonDefaultConstructible> moved{std::move(queue)};
 	}
-
 	ASSERT_EQUAL(1, NonDefaultConstructible::nOfDtorCalls);
 }
 
@@ -112,8 +111,7 @@ void test_pop_destroys_element() {
 	queue.push(NonDefaultConstructible{23});
 	resetCounters();
 
-	queue.pop();
-
+	auto tmp=queue.pop();
 	ASSERT_EQUAL(1, NonDefaultConstructible::nOfDtorCalls);
 }
 

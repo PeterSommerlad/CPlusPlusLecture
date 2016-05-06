@@ -25,26 +25,17 @@ void test_int_queue_of_capacity_thousand_has_size_zero() {
 }
 
 
-void test_empty_bounded_queue_throws_on_pop() {
+void test_empty_bounded_queue_returns_false_on_try_pop() {
 	BoundedQueue<int> queue{23};
-	ASSERT(false);
-	ASSERT_THROWS(queue.pop(), std::logic_error);
+	int val{};
+	ASSERT(!queue.try_pop(val));
 }
 
-void test_full_bounded_queue_throws_on_push_const_lvalue() {
+void test_full_bounded_queue_returns_false_on_try_push_const_lvalue() {
 	BoundedQueue<int> queue{1};
 	int const lvalue{23};
 	queue.push(lvalue);
-	ASSERT(false);
-	ASSERT_THROWS(queue.push(lvalue), std::logic_error);
-}
-
-void test_full_bounded_queue_throws_on_push_rvalue() {
-	BoundedQueue<int> queue{1};
-	int const lvalue{23};
-	queue.push(lvalue);
-	ASSERT(false);
-	ASSERT_THROWS(queue.push(23), std::logic_error);
+	ASSERT(!queue.try_push(lvalue));
 }
 
 cute::suite make_suite_bounded_queue_default_behavior_suite(){
@@ -53,9 +44,8 @@ cute::suite make_suite_bounded_queue_default_behavior_suite(){
 	s.push_back(CUTE(test_queue_constructor_for_capacity_zero_throws));
 	s.push_back(CUTE(test_const_int_queue_of_capacity_thousand_is_not_full));
 	s.push_back(CUTE(test_int_queue_of_capacity_thousand_has_size_zero));
-	s.push_back(CUTE(test_empty_bounded_queue_throws_on_pop));
-	s.push_back(CUTE(test_full_bounded_queue_throws_on_push_const_lvalue));
-	s.push_back(CUTE(test_full_bounded_queue_throws_on_push_rvalue));
+	s.push_back(CUTE(test_empty_bounded_queue_returns_false_on_try_pop));
+	s.push_back(CUTE(test_full_bounded_queue_returns_false_on_try_push_const_lvalue));
 	return s;
 }
 

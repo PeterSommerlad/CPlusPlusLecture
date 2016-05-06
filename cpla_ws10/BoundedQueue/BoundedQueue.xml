@@ -1,22 +1,7 @@
 <testsuites>
-	<testsuite name="AllTests" tests="1">
-		<testcase classname="AllTests" name="thisIsATest">
-			<failure message="../src/Test.cpp:15 thisIsATest: start writing tests">
-thisIsATest: start writing tests
-			</failure>
-		</testcase>
+	<testsuite name="AllTests" tests="0">
 	</testsuite>
-	<testsuite name="BoundedQueueAPI" tests="2">
-		<testcase classname="BoundedQueueAPI" name="thisIsATestBoundedQueueAPITest">
-			<failure message="../src/TestBoundedQueueAPI.cpp:12 thisIsATestBoundedQueueAPITest: start writing tests">
-thisIsATestBoundedQueueAPITest: start writing tests
-			</failure>
-		</testcase>
-		<testcase classname="BoundedQueueAPI" name="testConstructor">
-			<failure message="../src/TestBoundedQueueAPI.cpp:7 testConstructor: start writing tests">
-testConstructor: start writing tests
-			</failure>
-		</testcase>
+	<testsuite name="BoundedQueueAPI" tests="0">
 	</testsuite>
 	<testsuite name="BoundedQueue Signature Tests" tests="12">
 		<testcase classname="BoundedQueue Signature Tests" name="test_bounded_queue_value_type_is_value"/>
@@ -32,26 +17,13 @@ testConstructor: start writing tests
 		<testcase classname="BoundedQueue Signature Tests" name="test_bounded_queue_type_of_pop_is_value_type"/>
 		<testcase classname="BoundedQueue Signature Tests" name="test_bounded_queue_type_of_swap_is_void"/>
 	</testsuite>
-	<testsuite name="BoundedQueue Default Behavior Tests" tests="7">
+	<testsuite name="BoundedQueue Default Behavior Tests" tests="6">
 		<testcase classname="BoundedQueue Default Behavior Tests" name="test_int_queue_of_capacity_thousand_is_empty"/>
 		<testcase classname="BoundedQueue Default Behavior Tests" name="test_queue_constructor_for_capacity_zero_throws"/>
 		<testcase classname="BoundedQueue Default Behavior Tests" name="test_const_int_queue_of_capacity_thousand_is_not_full"/>
 		<testcase classname="BoundedQueue Default Behavior Tests" name="test_int_queue_of_capacity_thousand_has_size_zero"/>
-		<testcase classname="BoundedQueue Default Behavior Tests" name="test_empty_bounded_queue_throws_on_pop">
-			<failure message="../src/bounded_queue_default_behavior_suite.cpp:30 test_empty_bounded_queue_throws_on_pop: false">
-test_empty_bounded_queue_throws_on_pop: false
-			</failure>
-		</testcase>
-		<testcase classname="BoundedQueue Default Behavior Tests" name="test_full_bounded_queue_throws_on_push_const_lvalue">
-			<failure message="../src/bounded_queue_default_behavior_suite.cpp:38 test_full_bounded_queue_throws_on_push_const_lvalue: false">
-test_full_bounded_queue_throws_on_push_const_lvalue: false
-			</failure>
-		</testcase>
-		<testcase classname="BoundedQueue Default Behavior Tests" name="test_full_bounded_queue_throws_on_push_rvalue">
-			<failure message="../src/bounded_queue_default_behavior_suite.cpp:46 test_full_bounded_queue_throws_on_push_rvalue: false">
-test_full_bounded_queue_throws_on_push_rvalue: false
-			</failure>
-		</testcase>
+		<testcase classname="BoundedQueue Default Behavior Tests" name="test_empty_bounded_queue_returns_false_on_try_pop"/>
+		<testcase classname="BoundedQueue Default Behavior Tests" name="test_full_bounded_queue_returns_false_on_try_push_const_lvalue"/>
 	</testsuite>
 	<testsuite name="BoundedQueue Content Tests" tests="11">
 		<testcase classname="BoundedQueue Content Tests" name="test_queue_is_not_empty_after_push_rvalue"/>
@@ -75,38 +47,18 @@ test_full_bounded_queue_throws_on_push_rvalue: false
 		<testcase classname="BoundedQueue Heap Memory Tests" name="test_copy_constructor_allocates_a_new_queue"/>
 		<testcase classname="BoundedQueue Heap Memory Tests" name="test_copy_self_assignment_no_additional_allocation"/>
 		<testcase classname="BoundedQueue Heap Memory Tests" name="test_move_self_assignment_no_addtional_allocation"/>
-		<testcase classname="BoundedQueue Heap Memory Tests" name="test_copy_only_initialized_elements_in_copy_construction">
-			<failure message="../src/bounded_queue_heap_memory_suite.cpp:172 test_copy_only_initialized_elements_in_copy_construction: 50 == CopyCounter::copy_counter expected:	50	but was:	0	">
-test_copy_only_initialized_elements_in_copy_construction: 50 == CopyCounter::copy_counter expected:	50	but was:	0	
-			</failure>
-		</testcase>
-		<testcase classname="BoundedQueue Heap Memory Tests" name="test_copy_only_initialized_elements_in_copy_assignment">
-			<failure message="../src/bounded_queue_heap_memory_suite.cpp:188 test_copy_only_initialized_elements_in_copy_assignment: 50 == CopyCounter::copy_counter expected:	50	but was:	0	">
-test_copy_only_initialized_elements_in_copy_assignment: 50 == CopyCounter::copy_counter expected:	50	but was:	0	
-			</failure>
-		</testcase>
+		<testcase classname="BoundedQueue Heap Memory Tests" name="test_copy_only_initialized_elements_in_copy_construction"/>
+		<testcase classname="BoundedQueue Heap Memory Tests" name="test_copy_only_initialized_elements_in_copy_assignment"/>
 		<testcase classname="BoundedQueue Heap Memory Tests" name="test_move_constructor_does_not_allocate_a_new_queue"/>
 		<testcase classname="BoundedQueue Heap Memory Tests" name="test_copy_assignment_one_additional_allocation"/>
 		<testcase classname="BoundedQueue Heap Memory Tests" name="test_move_assignment_no_additional_allocation"/>
 	</testsuite>
 	<testsuite name="BoundedQueue Non-Default-Constructible Element Type Tests" tests="15">
 		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_new_queue_of_nondefaultconstructible_invokes_no_destructors"/>
-		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_element_in_queue_is_destroyed_once">
-			<failure message="../src/bounded_queue_non_default_constructible_element_type_suite.cpp:84 test_element_in_queue_is_destroyed_once: 1 == NonDefaultConstructible::nOfDtorCalls expected:	1	but was:	2	">
-test_element_in_queue_is_destroyed_once: 1 == NonDefaultConstructible::nOfDtorCalls expected:	1	but was:	2	
-			</failure>
-		</testcase>
-		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_element_in_moved_queue_is_destroyed_once">
-			<failure message="../src/bounded_queue_non_default_constructible_element_type_suite.cpp:96 test_element_in_moved_queue_is_destroyed_once: 1 == NonDefaultConstructible::nOfDtorCalls expected:	1	but was:	2	">
-test_element_in_moved_queue_is_destroyed_once: 1 == NonDefaultConstructible::nOfDtorCalls expected:	1	but was:	2	
-			</failure>
-		</testcase>
+		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_element_in_queue_is_destroyed_once"/>
+		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_element_in_moved_queue_is_destroyed_once"/>
 		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_every_element_in_copied_queue_is_destroyed_once"/>
-		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_pop_destroys_element">
-			<failure message="../src/bounded_queue_non_default_constructible_element_type_suite.cpp:117 test_pop_destroys_element: 1 == NonDefaultConstructible::nOfDtorCalls expected:	1	but was:	2	">
-test_pop_destroys_element: 1 == NonDefaultConstructible::nOfDtorCalls expected:	1	but was:	2	
-			</failure>
-		</testcase>
+		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_pop_destroys_element"/>
 		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_lvalue_push_copies_element"/>
 		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_rvalue_push_moves_element"/>
 		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_lvalue_push_must_not_copy_assign"/>
@@ -115,15 +67,7 @@ test_pop_destroys_element: 1 == NonDefaultConstructible::nOfDtorCalls expected:	
 		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_self_copy_assignment_unchanged_size"/>
 		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_self_copy_assignment_no_copy_construction"/>
 		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_self_move_assignment_no_move_construction"/>
-		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_copy_assignment_deletes_previous_elements">
-			<failure message="../src/bounded_queue_non_default_constructible_element_type_suite.cpp:207 test_copy_assignment_deletes_previous_elements: 1 == NonDefaultConstructible::nOfDtorCalls expected:	1	but was:	2	">
-test_copy_assignment_deletes_previous_elements: 1 == NonDefaultConstructible::nOfDtorCalls expected:	1	but was:	2	
-			</failure>
-		</testcase>
-		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_move_assignment_deletes_previous_elements_upon_destruction">
-			<failure message="../src/bounded_queue_non_default_constructible_element_type_suite.cpp:219 test_move_assignment_deletes_previous_elements_upon_destruction: 1 == NonDefaultConstructible::nOfDtorCalls expected:	1	but was:	2	">
-test_move_assignment_deletes_previous_elements_upon_destruction: 1 == NonDefaultConstructible::nOfDtorCalls expected:	1	but was:	2	
-			</failure>
-		</testcase>
+		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_copy_assignment_deletes_previous_elements"/>
+		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_move_assignment_deletes_previous_elements_upon_destruction"/>
 	</testsuite>
 </testsuites>

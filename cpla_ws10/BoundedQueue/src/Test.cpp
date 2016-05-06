@@ -11,14 +11,10 @@
 #include "bounded_queue_heap_memory_suite.h"
 #include "bounded_queue_non_default_constructible_element_type_suite.h"
 
-void thisIsATest() {
-	ASSERTM("start writing tests", false);	
-}
 
 void runAllTests(int argc, char const *argv[]){
 	cute::suite s;
 	//TODO add your test here
-	s.push_back(CUTE(thisIsATest));
 	cute::xml_file_opener xmlfile(argc,argv);
 	cute::xml_listener<cute::ide_listener<> >  lis(xmlfile.out);
 	cute::makeRunner(lis,argc,argv)(s, "AllTests");
