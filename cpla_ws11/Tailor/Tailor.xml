@@ -1,0 +1,9 @@
+<testsuites>
+	<testsuite name="AllTests" tests="5">
+		<testcase classname="AllTests" name="testfak"/>
+		<testcase classname="AllTests" name="testsine"/>
+		<testcase classname="AllTests" name="testcosine"/>
+		<testcase classname="AllTests" name="testAdjustToPi"/>
+		<testcase classname="AllTests" name="testsineTableTest"/>
+	</testsuite>
+</testsuites>

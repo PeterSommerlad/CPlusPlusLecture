@@ -1,0 +1,18 @@
+<testsuites>
+	<testsuite name="AllTests" tests="14">
+		<testcase classname="AllTests" name="testSimpleTableWithCompileTimeExpectedResult"/>
+		<testcase classname="AllTests" name="testIndexSequenceCompileTime"/>
+		<testcase classname="AllTests" name="testMultabLoops"/>
+		<testcase classname="AllTests" name="testMultabLoopsBinary"/>
+		<testcase classname="AllTests" name="testMultabLoopsDirect"/>
+		<testcase classname="AllTests" name="testMultabLoopsVector"/>
+		<testcase classname="AllTests" name="testMultabLambdaBindVector"/>
+		<testcase classname="AllTests" name="testMultabIteratorVector"/>
+		<testcase classname="AllTests" name="testIndexSequence"/>
+		<testcase classname="AllTests" name="testMultabCompileTimeArray"/>
+		<testcase classname="AllTests" name="test10by10VariableTemplateVersion"/>
+		<testcase classname="AllTests" name="test10by10VariableTemplateVersion_ce_string"/>
+		<testcase classname="AllTests" name="testKleinesEinmaleins"/>
+		<testcase classname="AllTests" name="testGrossesEinmaleins"/>
+	</testsuite>
+</testsuites>
