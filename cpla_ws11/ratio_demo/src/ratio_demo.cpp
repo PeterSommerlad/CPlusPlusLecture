@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-template <typename R,  typename = std::enable_if_t<is_ratio<R>{}>>
+template <typename R,  typename = std::enable_if_t<detail::is_ratio<R>>>
 constexpr long double value_of{static_cast<long double>(R::num)/R::den};
 
 using namespace std;
@@ -15,7 +15,7 @@ using half=ratio<1,2>;
 
 using X=ratio_add<half,third>;
 
-template <typename RATIO, typename =std::enable_if_t<is_ratio<RATIO>{}>>
+template <typename RATIO, typename =std::enable_if_t<detail::is_ratio<RATIO>>>
 std::ostream &operator<<(std::ostream &out,RATIO const &r){
 	return out << '(' << r.num << '/' << r.den<< ')';
 
