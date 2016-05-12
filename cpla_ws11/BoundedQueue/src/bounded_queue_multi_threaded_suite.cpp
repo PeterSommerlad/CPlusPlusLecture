@@ -131,12 +131,38 @@ void test_ten_producers_ten_consumers() {
 }
 
 
+void test_blocked_produced_unblocks() {
+	BoundedQueue<unsigned> queue { 1 };
+	queue.push(1);
+
+	std::async(std::launch::async, [&](){
+		std::this_thread::sleep_for(std::chrono::milliseconds{50});
+		queue.pop();
+	});
+
+	queue.push(2);
+	ASSERT_EQUAL(2, queue.pop());
+}
+
+void test_blocked_consumer_unblocks() {
+	BoundedQueue<unsigned> queue { 1 };
+
+	std::async(std::launch::async, [&](){
+		std::this_thread::sleep_for(std::chrono::milliseconds{50});
+		queue.push(1);
+	});
+
+	ASSERT_EQUAL(1, queue.pop());
+}
+
 cute::suite make_suite_bounded_queue_multi_threaded_suite() {
 	cute::suite s;
 	s.push_back(CUTE(test_one_producer_and_one_consumer));
 	s.push_back(CUTE(test_two_producers_and_one_consumer));
 	s.push_back(CUTE(test_one_producer_two_consumers));
 	s.push_back(CUTE(test_ten_producers_ten_consumers));
+	s.push_back(CUTE(test_blocked_produced_unblocks));
+	s.push_back(CUTE(test_blocked_consumer_unblocks));
 	return s;
 }
 
