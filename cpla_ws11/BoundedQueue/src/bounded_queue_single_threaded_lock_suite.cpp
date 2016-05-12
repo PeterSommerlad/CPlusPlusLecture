@@ -60,11 +60,11 @@ namespace single_threaded_condition_variable_counters {
 		docheck=true;
 	}
 }
-template <size_t waitc=0,size_t notifyc=0>
+template <size_t waitc=0,size_t notifyc=0, bool DO_CHECK = false>
 struct single_threaded_condition_variable {
 	single_threaded_condition_variable(){
 		using namespace single_threaded_condition_variable_counters;
-		docheck=false; // scharf stellen mit reset_counters()
+		docheck=DO_CHECK; // scharf stellen mit reset_counters()
 	}
 	~single_threaded_condition_variable() noexcept(false){
 		using namespace single_threaded_condition_variable_counters;
@@ -83,6 +83,7 @@ struct single_threaded_condition_variable {
 		using namespace single_threaded_condition_variable_counters;
 		static_assert(std::is_convertible<decltype(cond()),bool>::value,"condition must return bool");
 		++wait_count;
+		inner_condition.wait(mx, cond);
 		ASSERT(cond());
 	}
 	template <typename LOCK>
@@ -90,31 +91,38 @@ struct single_threaded_condition_variable {
 		using namespace single_threaded_condition_variable_counters;
 //		static_assert(false,"must not use wait without condition, bad practice");
 		++wait_count;
+		inner_condition.wait(mx);
 	}
 	template <typename LOCK,typename COND, typename REP,typename PER>
-	void wait_for(LOCK & mx, std::chrono::duration<REP,PER> const & dur, COND cond){
+	bool wait_for(LOCK & mx, std::chrono::duration<REP,PER> const & dur, COND cond){
 		using namespace single_threaded_condition_variable_counters;
 		static_assert(std::is_convertible<decltype(cond()),bool>::value,"condition must return bool");
 		++wait_count;
+		return inner_condition.wait_for(mx, dur, cond);
 	}
 	template <typename LOCK, typename REP,typename PER>
-	void wait_for(LOCK & mx, std::chrono::duration<REP,PER> const & dur){
+	bool wait_for(LOCK & mx, std::chrono::duration<REP,PER> const & dur){
 		using namespace single_threaded_condition_variable_counters;
 //		static_assert(false,"must not use wait without condition, bad practice");
 		++wait_count;
+		return inner_condition.wait_for(mx, dur);
 	}
 	void notify_all(){
 		using namespace single_threaded_condition_variable_counters;
 		++notify_count;
+		inner_condition.notify_all();
 	}
 	void notify_one(){
 		using namespace single_threaded_condition_variable_counters;
 		++notify_count;
+		inner_condition.notify_one();
 	}
 	static bool check(){
 		using namespace single_threaded_condition_variable_counters;
 		return bad_waits==0 && wait_count <= notify_count;
 	}
+private:
+	std::condition_variable_any inner_condition{};
 };
 
 
@@ -249,7 +257,7 @@ void test_swap_successful_after_delayed_lock() {
 }
 
 void test_try_push_rvalue_aquires_lock() {
-	BoundedQueue<int, single_threaded_test_mutex,single_threaded_condition_variable<0,1>> queue{5};
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0,1>> queue{5};
 	single_threaded_test_mutex::reset_counters();
 	single_threaded_condition_variable_counters::reset_counters();
 	queue.try_push(1);
@@ -257,55 +265,62 @@ void test_try_push_rvalue_aquires_lock() {
 }
 
 void test_try_push_rvalue_releases_lock() {
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{5};
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0,1>> queue{5};
 	single_threaded_test_mutex::reset_counters();
+	single_threaded_condition_variable_counters::reset_counters();
 	queue.try_push(1);
 	ASSERT_EQUAL(1, single_threaded_test_mutex::unlock_count);
 }
 
 void test_try_push_lvalue_aquires_lock() {
 	int i{1};
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{5};
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0,1>> queue{5};
 	single_threaded_test_mutex::reset_counters();
+	single_threaded_condition_variable_counters::reset_counters();
 	queue.try_push(i);
 	ASSERT_EQUAL(1, single_threaded_test_mutex::lock_count);
 }
 
 void test_try_push_lvalue_releases_lock() {
 	int i{1};
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{5};
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0,1>> queue{5};
 	single_threaded_test_mutex::reset_counters();
+	single_threaded_condition_variable_counters::reset_counters();
 	queue.try_push(i);
 	ASSERT_EQUAL(1, single_threaded_test_mutex::unlock_count);
 }
 
 void test_try_pop_aquires_lock() {
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{5};
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0,1>> queue{5};
 	queue.push(1);
 	int result{};
 	single_threaded_test_mutex::reset_counters();
+	single_threaded_condition_variable_counters::reset_counters();
 	queue.try_pop(result);
 	ASSERT_EQUAL(1, single_threaded_test_mutex::lock_count);
 }
 
 void test_try_pop_releases_lock() {
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{5};
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0,1>> queue{5};
 	queue.push(1);
 	int result{};
 	single_threaded_test_mutex::reset_counters();
+	single_threaded_condition_variable_counters::reset_counters();
 	queue.try_pop(result);
 	ASSERT_EQUAL(1, single_threaded_test_mutex::unlock_count);
 }
 
 void test_no_lock_on_size_constructor() {
 	single_threaded_test_mutex::reset_counters();
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{5};
+	single_threaded_condition_variable_counters::reset_counters();
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0,0, true>> queue{5};
 	ASSERT_EQUAL(0, single_threaded_test_mutex::lock_count);
 }
 
 void test_no_unlock_on_size_constructor() {
 	single_threaded_test_mutex::reset_counters();
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{5};
+	single_threaded_condition_variable_counters::reset_counters();
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0,0, true>> queue{5};
 	ASSERT_EQUAL(0, single_threaded_test_mutex::unlock_count);
 }
 
@@ -314,99 +329,110 @@ bool same_locks_and_unlocks() {
 }
 
 void test_symmetric_lock_and_unlock_on_copy_constructor() {
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{5};
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0,0, true>> queue{5};
 	single_threaded_test_mutex::reset_counters();
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> copy{queue};
+	single_threaded_condition_variable_counters::reset_counters();
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0,0, true>> copy{queue};
 	ASSERT(same_locks_and_unlocks());
 }
 
 void test_symmetric_lock_and_unlock_on_move_constructor() {
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{5};
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0,0, true>> queue{5};
 	single_threaded_test_mutex::reset_counters();
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> moved{std::move(queue)};
+	single_threaded_condition_variable_counters::reset_counters();
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0,0, true>> moved{std::move(queue)};
 	ASSERT(same_locks_and_unlocks());
 }
 
 void test_symmetric_lock_and_unlock_on_copy_assignment() {
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{5}, copy{4};
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0,1>> queue{5}, copy{4};
 	single_threaded_test_mutex::reset_counters();
+	single_threaded_condition_variable_counters::reset_counters();
 	copy = queue;
 	ASSERT(same_locks_and_unlocks());
 }
 
 void test_symmetric_lock_and_unlock_on_move_assignment() {
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{5}, moved{4};
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0,0>> queue{5}, moved{4};
 	single_threaded_test_mutex::reset_counters();
+	single_threaded_condition_variable_counters::reset_counters();
 	moved = std::move(queue);
 	ASSERT(same_locks_and_unlocks());
 }
 
 void test_try_push_for_aquires_lock_on_empty_queue() {
 	int i{1};
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{5};
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<1,1>> queue{5};
 	single_threaded_test_mutex::reset_counters();
+	single_threaded_condition_variable_counters::reset_counters();
 	queue.try_push_for(i, std::chrono::milliseconds{1});
 	ASSERT_EQUAL(1, single_threaded_test_mutex::lock_count);
 }
 
 void test_try_push_for_releases_lock_on_empty_queue() {
 	int i{1};
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{5};
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<1,1>> queue{5};
 	single_threaded_test_mutex::reset_counters();
+	single_threaded_condition_variable_counters::reset_counters();
 	queue.try_push_for(i, std::chrono::milliseconds{1});
 	ASSERT_EQUAL(1, single_threaded_test_mutex::unlock_count);
 }
 
 void test_try_pop_for_aquires_lock_on_empty_queue() {
 	int result{};
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{5};
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<1,0>> queue{5};
 	single_threaded_test_mutex::reset_counters();
+	single_threaded_condition_variable_counters::reset_counters();
 	queue.try_pop_for(result, std::chrono::milliseconds{1});
 	ASSERT_EQUAL(2, single_threaded_test_mutex::lock_count);
 }
 
 void test_try_pop_for_releases_lock_on_empty_queue() {
 	int result{};
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{5};
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<1,0>> queue{5};
 	single_threaded_test_mutex::reset_counters();
+	single_threaded_condition_variable_counters::reset_counters();
 	queue.try_pop_for(result, std::chrono::milliseconds{1});
 	ASSERT_EQUAL(2, single_threaded_test_mutex::unlock_count);
 }
 
 void test_try_push_for_aquires_lock_on_full_queue() {
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{1};
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<1,0>> queue{1};
 	queue.push(1);
 	single_threaded_test_mutex::reset_counters();
+	single_threaded_condition_variable_counters::reset_counters();
 	queue.try_push_for(1, std::chrono::milliseconds{1});
 	ASSERT_EQUAL(2, single_threaded_test_mutex::lock_count);
 }
 
 void test_try_push_for_releases_lock_on_full_queue() {
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{1};
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<1,0>> queue{1};
 	queue.push(1);
 	single_threaded_test_mutex::reset_counters();
+	single_threaded_condition_variable_counters::reset_counters();
 	queue.try_push_for(1, std::chrono::milliseconds{1});
 	ASSERT_EQUAL(2, single_threaded_test_mutex::unlock_count);
 }
 
 void test_try_pop_for_aquires_lock_on_full_queue() {
 	int result{};
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{1};
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<1,0>> queue{1};
 	queue.push(1);
 	single_threaded_test_mutex::reset_counters();
+	single_threaded_condition_variable_counters::reset_counters();
 	queue.try_push_for(result, std::chrono::milliseconds{1});
 	ASSERT_EQUAL(2, single_threaded_test_mutex::lock_count);
 }
 
 void test_try_pop_for_releases_lock_on_full_queue() {
 	int result{};
-	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{1};
+	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<1,0>> queue{1};
 	queue.push(1);
 	single_threaded_test_mutex::reset_counters();
+	single_threaded_condition_variable_counters::reset_counters();
 	queue.try_push_for(result, std::chrono::milliseconds{1});
 	ASSERT_EQUAL(2, single_threaded_test_mutex::unlock_count);
 }
-
 
 
 cute::suite make_suite_bounded_queue_single_threaded_lock_suite(){
