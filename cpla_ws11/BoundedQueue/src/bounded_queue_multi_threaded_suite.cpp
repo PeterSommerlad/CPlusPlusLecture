@@ -135,7 +135,7 @@ void test_blocked_produced_unblocks() {
 	BoundedQueue<unsigned> queue { 1 };
 	queue.push(1);
 
-	std::async(std::launch::async, [&](){
+	auto f = std::async(std::launch::async, [&](){
 		std::this_thread::sleep_for(std::chrono::milliseconds{50});
 		queue.pop();
 	});
@@ -147,7 +147,7 @@ void test_blocked_produced_unblocks() {
 void test_blocked_consumer_unblocks() {
 	BoundedQueue<unsigned> queue { 1 };
 
-	std::async(std::launch::async, [&](){
+	auto f = std::async(std::launch::async, [&](){
 		std::this_thread::sleep_for(std::chrono::milliseconds{50});
 		queue.push(1);
 	});
