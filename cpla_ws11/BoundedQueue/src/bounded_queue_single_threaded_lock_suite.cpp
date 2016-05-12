@@ -341,6 +341,74 @@ void test_symmetric_lock_and_unlock_on_move_assignment() {
 	ASSERT(same_locks_and_unlocks());
 }
 
+void test_try_push_for_aquires_lock_on_empty_queue() {
+	int i{1};
+	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{5};
+	single_threaded_test_mutex::reset_counters();
+	queue.try_push_for(i, std::chrono::milliseconds{1});
+	ASSERT_EQUAL(1, single_threaded_test_mutex::lock_count);
+}
+
+void test_try_push_for_releases_lock_on_empty_queue() {
+	int i{1};
+	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{5};
+	single_threaded_test_mutex::reset_counters();
+	queue.try_push_for(i, std::chrono::milliseconds{1});
+	ASSERT_EQUAL(1, single_threaded_test_mutex::unlock_count);
+}
+
+void test_try_pop_for_aquires_lock_on_empty_queue() {
+	int result{};
+	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{5};
+	single_threaded_test_mutex::reset_counters();
+	queue.try_pop_for(result, std::chrono::milliseconds{1});
+	ASSERT_EQUAL(2, single_threaded_test_mutex::lock_count);
+}
+
+void test_try_pop_for_releases_lock_on_empty_queue() {
+	int result{};
+	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{5};
+	single_threaded_test_mutex::reset_counters();
+	queue.try_pop_for(result, std::chrono::milliseconds{1});
+	ASSERT_EQUAL(2, single_threaded_test_mutex::unlock_count);
+}
+
+void test_try_push_for_aquires_lock_on_full_queue() {
+	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{1};
+	queue.push(1);
+	single_threaded_test_mutex::reset_counters();
+	queue.try_push_for(1, std::chrono::milliseconds{1});
+	ASSERT_EQUAL(2, single_threaded_test_mutex::lock_count);
+}
+
+void test_try_push_for_releases_lock_on_full_queue() {
+	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{1};
+	queue.push(1);
+	single_threaded_test_mutex::reset_counters();
+	queue.try_push_for(1, std::chrono::milliseconds{1});
+	ASSERT_EQUAL(2, single_threaded_test_mutex::unlock_count);
+}
+
+void test_try_pop_for_aquires_lock_on_full_queue() {
+	int result{};
+	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{1};
+	queue.push(1);
+	single_threaded_test_mutex::reset_counters();
+	queue.try_push_for(result, std::chrono::milliseconds{1});
+	ASSERT_EQUAL(2, single_threaded_test_mutex::lock_count);
+}
+
+void test_try_pop_for_releases_lock_on_full_queue() {
+	int result{};
+	BoundedQueue<int, single_threaded_test_mutex,std::condition_variable_any> queue{1};
+	queue.push(1);
+	single_threaded_test_mutex::reset_counters();
+	queue.try_push_for(result, std::chrono::milliseconds{1});
+	ASSERT_EQUAL(2, single_threaded_test_mutex::unlock_count);
+}
+
+
+
 cute::suite make_suite_bounded_queue_single_threaded_lock_suite(){
 	cute::suite s;
 	s.push_back(CUTE(test_push_rvalue_aquires_lock));
@@ -372,6 +440,14 @@ cute::suite make_suite_bounded_queue_single_threaded_lock_suite(){
 	s.push_back(CUTE(test_symmetric_lock_and_unlock_on_move_constructor));
 	s.push_back(CUTE(test_symmetric_lock_and_unlock_on_copy_assignment));
 	s.push_back(CUTE(test_symmetric_lock_and_unlock_on_move_assignment));
+	s.push_back(CUTE(test_try_push_for_aquires_lock_on_empty_queue));
+	s.push_back(CUTE(test_try_push_for_releases_lock_on_empty_queue));
+	s.push_back(CUTE(test_try_pop_for_aquires_lock_on_empty_queue));
+	s.push_back(CUTE(test_try_pop_for_releases_lock_on_empty_queue));
+	s.push_back(CUTE(test_try_push_for_aquires_lock_on_full_queue));
+	s.push_back(CUTE(test_try_push_for_releases_lock_on_full_queue));
+	s.push_back(CUTE(test_try_pop_for_aquires_lock_on_full_queue));
+	s.push_back(CUTE(test_try_pop_for_releases_lock_on_full_queue));
 	return s;
 }
 
