@@ -3,6 +3,8 @@
 #include "cute.h"
 #include "BoundedQueue.h"
 #include <boost/type_index.hpp>
+#include <chrono>
+
 
 void test_bounded_queue_value_type_is_value() {
 	auto value_type = boost::typeindex::type_id_with_cvr<BoundedQueue<int>::value_type>();
@@ -101,6 +103,21 @@ void test_bounded_queue_type_of_swap_is_void() {
 	ASSERT_EQUAL(expected_type.pretty_name(), pop_type.pretty_name());
 }
 
+void test_bounded_queue_type_of_try_push_for_is_bool() {
+	BoundedQueue<int> queue { 15 };
+	auto pop_type = boost::typeindex::type_id_with_cvr<decltype(queue.try_push_for(1, std::chrono::seconds{1}))>();
+	auto expected_type = boost::typeindex::type_id_with_cvr<bool>();
+	ASSERT_EQUAL(expected_type.pretty_name(), pop_type.pretty_name());
+}
+
+void test_bounded_queue_type_of_try_pop_for_is_bool() {
+	BoundedQueue<int> queue { 15 };
+	int result{};
+	auto pop_type = boost::typeindex::type_id_with_cvr<decltype(queue.try_pop_for(result, std::chrono::seconds{1}))>();
+	auto expected_type = boost::typeindex::type_id_with_cvr<bool>();
+	ASSERT_EQUAL(expected_type.pretty_name(), pop_type.pretty_name());
+}
+
 cute::suite make_suite_bounded_queue_signatures_suite() {
 	cute::suite s;
 	s.push_back(CUTE(test_bounded_queue_value_type_is_value));
@@ -117,6 +134,8 @@ cute::suite make_suite_bounded_queue_signatures_suite() {
 	s.push_back(CUTE(test_bounded_queue_type_of_try_push_of_const_lvalue_is_bool));
 	s.push_back(CUTE(test_bounded_queue_type_of_try_push_of_rvalue_is_bool));
 	s.push_back(CUTE(test_bounded_queue_type_of_try_pop_is_bool));
+	s.push_back(CUTE(test_bounded_queue_type_of_try_push_for_is_bool));
+	s.push_back(CUTE(test_bounded_queue_type_of_try_pop_for_is_bool));
 	return s;
 }
 
