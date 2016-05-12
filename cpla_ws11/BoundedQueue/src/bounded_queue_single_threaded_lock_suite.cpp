@@ -248,16 +248,7 @@ void test_swap_aquires_both_locks() {
 
 	queue.swap(other);
 
-	ASSERT_EQUAL(2, single_threaded_test_mutex::lock_count + single_threaded_test_mutex::try_lock_count); // PS: should be 2? both queues must be locked
-}
-
-void test_swap_aquires_one_try_lock() { // that is too fragile! std::lock could work differently
-	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<>> queue { 5 }, other { 4 };
-	reset_counters();
-
-	queue.swap(other);
-
-	//ASSERT_EQUAL(1, single_threaded_test_mutex::try_lock_count);
+	ASSERT_EQUAL(2, single_threaded_test_mutex::lock_count + single_threaded_test_mutex::try_lock_count);
 }
 
 void test_swap_releases_two_locks() {
@@ -501,7 +492,6 @@ cute::suite make_suite_bounded_queue_single_threaded_lock_suite() {
 	s.push_back(CUTE(test_size_aquires_lock));
 	s.push_back(CUTE(test_size_releases_lock));
 	s.push_back(CUTE(test_swap_aquires_both_locks));
-	s.push_back(CUTE(test_swap_aquires_one_try_lock));
 	s.push_back(CUTE(test_swap_releases_two_locks));
 	s.push_back(CUTE(test_try_push_rvalue_aquires_lock));
 	s.push_back(CUTE(test_try_push_rvalue_releases_lock));
