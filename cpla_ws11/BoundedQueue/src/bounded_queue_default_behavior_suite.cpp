@@ -64,6 +64,9 @@ cute::suite make_suite_bounded_queue_default_behavior_suite(){
 	s.push_back(CUTE(test_int_queue_of_capacity_thousand_has_size_zero));
 	s.push_back(CUTE(test_empty_bounded_queue_returns_false_on_try_pop));
 	s.push_back(CUTE(test_full_bounded_queue_returns_false_on_try_push_const_lvalue));
+	s.push_back(CUTE(test_full_bounded_queue_returns_false_on_try_push_rvalue));
+	s.push_back(CUTE(test_empty_bounded_queue_returns_false_on_try_pop_for));
+	s.push_back(CUTE(test_full_bounded_queue_returns_false_on_try_push_for_const_lvalue));
 	return s;
 }
 
