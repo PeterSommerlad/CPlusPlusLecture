@@ -22,7 +22,7 @@ void compute(std::promise<int>&&promise){
 int main(){
 	using namespace std::chrono_literals;
 	std::promise<int> promise{};
-	auto future=promise.get_future();
+	auto future=promise.get_future(); // only once allowed
 
 	std::thread t{compute,std::move(promise)};
 	std::cout << std::boolalpha;

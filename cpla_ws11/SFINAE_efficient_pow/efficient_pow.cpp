@@ -25,7 +25,7 @@ std::enable_if_t<std::is_floating_point<P>{}&& std::is_arithmetic<T>{}
 pow(T factor,P power){
 	return std::pow(factor,std::common_type_t<T,P>(power));
 }
-std::string pow(...){ return "undefined";}
+//std::string pow(...){ return "undefined";}
 int main() {
 	using namespace std::literals;
 	std::cout << std::scientific;
@@ -35,6 +35,6 @@ int main() {
 	std::cout << pow(2.0,0.5) << std::endl;
 	std::cout << pow(1i,2) << std::endl;
 	std::cout << pow(1i,2.0) << std::endl;
-	std::cout << pow("12"s,3);
+//	std::cout << pow("12"s,3);
 }
 

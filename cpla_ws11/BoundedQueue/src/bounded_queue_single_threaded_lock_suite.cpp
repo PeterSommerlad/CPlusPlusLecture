@@ -281,8 +281,7 @@ void test_swap_successful_after_delayed_lock() {
 
 void test_try_push_rvalue_aquires_lock() {
 	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0, 1>> queue { 5 };
-	reset_counters();
-
+	single_threaded_test_mutex::reset_counters();
 	queue.try_push(1);
 
 	ASSERT_EQUAL(1, single_threaded_test_mutex::lock_count);
@@ -290,8 +289,7 @@ void test_try_push_rvalue_aquires_lock() {
 
 void test_try_push_rvalue_releases_lock() {
 	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0, 1>> queue { 5 };
-	reset_counters();
-
+	single_threaded_test_mutex::reset_counters();
 	queue.try_push(1);
 
 	ASSERT_EQUAL(1, single_threaded_test_mutex::unlock_count);
@@ -300,8 +298,7 @@ void test_try_push_rvalue_releases_lock() {
 void test_try_push_lvalue_aquires_lock() {
 	int i { 1 };
 	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0, 1>> queue { 5 };
-	reset_counters();
-
+	single_threaded_test_mutex::reset_counters();
 	queue.try_push(i);
 
 	ASSERT_EQUAL(1, single_threaded_test_mutex::lock_count);
@@ -310,8 +307,7 @@ void test_try_push_lvalue_aquires_lock() {
 void test_try_push_lvalue_releases_lock() {
 	int i { 1 };
 	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0, 1>> queue { 5 };
-	reset_counters();
-
+	single_threaded_test_mutex::reset_counters();
 	queue.try_push(i);
 
 	ASSERT_EQUAL(1, single_threaded_test_mutex::unlock_count);
@@ -321,8 +317,7 @@ void test_try_pop_aquires_lock() {
 	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0, 1>> queue { 5 };
 	queue.push(1);
 	int result { };
-	reset_counters();
-
+	single_threaded_test_mutex::reset_counters();
 	queue.try_pop(result);
 
 	ASSERT_EQUAL(1, single_threaded_test_mutex::lock_count);
@@ -332,8 +327,7 @@ void test_try_pop_releases_lock() {
 	BoundedQueue<int, single_threaded_test_mutex, single_threaded_condition_variable<0, 1>> queue { 5 };
 	queue.push(1);
 	int result { };
-	reset_counters();
-
+	single_threaded_test_mutex::reset_counters();
 	queue.try_pop(result);
 
 	ASSERT_EQUAL(1, single_threaded_test_mutex::unlock_count);

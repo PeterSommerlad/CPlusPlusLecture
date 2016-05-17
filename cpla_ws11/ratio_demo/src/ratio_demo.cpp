@@ -4,8 +4,8 @@
 #include <iostream>
 
 
-template <typename R,  typename = std::enable_if_t<detail::is_ratio<R>>>
-constexpr long double value_of{static_cast<long double>(R::num)/R::den};
+//template <typename R,  typename = std::enable_if_t<detail::is_ratio<R>>>
+//constexpr long double value_of{static_cast<long double>(R::num)/R::den};
 
 using namespace std;
 
@@ -25,8 +25,8 @@ int main() {
 	std::cout << X{};
 
 	std::cout << ratio<1,2>{}+ratio<1,4>{};
-	constexpr ratio<1,3> r;
-	constexpr ratio<2,5> q;
+	constexpr ratio<1,3> r{};
+	constexpr ratio<2,5> q{};
 	if (r < q) std::cout << r << "is less" << q;
 	else std::cout << q << "is less" << r;
 	std::cout << "\nvalue_of<third> = "<< value_of<third>;
