@@ -30,6 +30,16 @@ void test_empty_bounded_queue_returns_false_on_try_pop() {
 	ASSERT(!queue.try_pop(val));
 }
 
+void test_try_pop_sets_referred_value(){
+	BoundedQueue<int> queue{1};
+	int val{};
+	int const expect{42};
+	queue.push(expect);
+	queue.try_pop(val);
+	ASSERT_EQUAL(expect,val);
+}
+
+
 void test_full_bounded_queue_returns_false_on_try_push_const_lvalue() {
 	BoundedQueue<int> queue{1};
 	int const lvalue{23};
@@ -46,14 +56,22 @@ using namespace std::chrono_literals;
 void test_empty_bounded_queue_returns_false_on_try_pop_for() {
 	BoundedQueue<int> queue{23};
 	int val{};
-	ASSERT(!queue.try_pop_for(val,1ns));
+	ASSERT(!queue.try_pop_for(val,1ms));
 }
 
 void test_full_bounded_queue_returns_false_on_try_push_for_const_lvalue() {
 	BoundedQueue<int> queue{1};
 	int const lvalue{23};
 	queue.push(lvalue);
-	ASSERT(!queue.try_push_for(lvalue,1ns));
+	ASSERT(!queue.try_push_for(lvalue,1ms));
+}
+void test_try_pop_for_sets_referred_value(){
+	BoundedQueue<int> queue{1};
+	int val{};
+	int const expect{42};
+	queue.push(expect);
+	queue.try_pop_for(val,1ms);
+	ASSERT_EQUAL(expect,val);
 }
 
 cute::suite make_suite_bounded_queue_default_behavior_suite(){
@@ -67,6 +85,8 @@ cute::suite make_suite_bounded_queue_default_behavior_suite(){
 	s.push_back(CUTE(test_full_bounded_queue_returns_false_on_try_push_rvalue));
 	s.push_back(CUTE(test_empty_bounded_queue_returns_false_on_try_pop_for));
 	s.push_back(CUTE(test_full_bounded_queue_returns_false_on_try_push_for_const_lvalue));
+	s.push_back(CUTE(test_try_pop_sets_referred_value));
+	s.push_back(CUTE(test_try_pop_for_sets_referred_value));
 	return s;
 }
 
