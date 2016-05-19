@@ -29,7 +29,7 @@ std::string WizardImpl::searchForSpell(std::string const &wish) {
 
 Potion WizardImpl::mixPotion(std::string const &recipe) {
 	auto const potion = find(begin(potions), end(potions), recipe);
-	return potion!=end(potions)?*potion:"splash";
+	return potion!=end(potions)?*potion:"";
 }
 
 void WizardImpl::castSpell(std::string spell) {
@@ -45,8 +45,11 @@ std::string WizardImpl::doMagic(std::string const &wish) {
 		return "wootsh";
 	}
 	auto potion=mixPotion(wish);
-	applyPotion(potion);
-	return "zapp";
+	if (!potion.empty()){
+		applyPotion(potion);
+		return "zapp";
+	}
+	throw std::logic_error{"magic failed"};
 }
 
 void WizardImpl::learnSpell(const std::string& newspell) {

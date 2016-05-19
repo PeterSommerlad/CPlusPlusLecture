@@ -28,7 +28,7 @@ void wizardMixesPotionAndCanApply(){
 }
 void uknownMagicFails(){
 	Wizard magician{};
-	ASSERT_THROWS(magician.doMagic("Expectus Patronum!"),std::runtime_error);
+	ASSERT_THROWS(magician.doMagic("Expecto Patronum!"),std::runtime_error);
 }
 }
 

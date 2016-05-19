@@ -8,6 +8,8 @@ class Wizard { // all magic details hidden
 public:
 	Wizard(std::string name="Rincewind");
 	~Wizard(); // must declare and define in .cpp
+	Wizard(Wizard &&)=default;
+	Wizard& operator=(Wizard&&)=default;
 	std::string doMagic(std::string const &wish);
 	void learnSpell(std::string const &newspell);
 	void mixAndStorePotion(std::string const &potion);

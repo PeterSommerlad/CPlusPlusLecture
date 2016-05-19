@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>WizardPimplTest</name>
+	<name>UniversalOpaquePointerDemo</name>
 	<comment></comment>
 	<projects>
-		<project>WizardPimpl</project>
-		<project>Wizard</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -21,7 +19,6 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>ch.hsr.ifs.cute.ui.cutenature</nature>
 		<nature>org.eclipse.cdt.core.cnature</nature>
 		<nature>org.eclipse.cdt.core.ccnature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
