@@ -46,8 +46,8 @@ struct NonDefaultConstructible {
 	static unsigned nOfDtorCalls;
 private:
 	void throwIfUninitialized() const {
-		if (value != 1234) {
-			throw std::logic_error{"must not call operations on uninitialized NDC, with value: " + value};
+		if (value != INITIALIZED) {
+			throw std::logic_error{"must not call operations on uninitialized NDC, with value: " + std::to_string(value)};
 		}
 	}
 
