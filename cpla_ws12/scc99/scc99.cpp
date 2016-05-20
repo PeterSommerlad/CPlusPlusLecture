@@ -1,12 +1,12 @@
 #include <algorithm>
-using namespace std;
 #include <array>
 #include <chrono>
-using namespace chrono;
 #include <cstdlib>
 #include <iostream>
 #include <thread>
 
+using namespace std;
+using namespace std::chrono;
 static const int POOL_SIZE = 4;
 
 // Allow up to 4 active threads
