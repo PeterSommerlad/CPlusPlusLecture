@@ -24,6 +24,8 @@ std::ostream &operator<<(std::ostream &out,RATIO const &r){
 int main() {
 	std::cout << X{};
 
+	ratio<1,1> one;
+	std::cout << one;
 	std::cout << ratio<1,2>{}+ratio<1,4>{};
 	constexpr ratio<1,3> r{};
 	constexpr ratio<2,5> q{};
