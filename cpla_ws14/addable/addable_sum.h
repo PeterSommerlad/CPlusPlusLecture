@@ -1,7 +1,7 @@
 template <typename ADD, typename ADD2=ADD>
 concept bool Addable(){
 	return requires(ADD a, ADD2 b){
-		a+b;
+		{a+b} -> ADD;
 	};
 }
 template < typename ADD, typename ADD2=ADD>        
@@ -13,7 +13,7 @@ ADD add(ADD a, ADD2 b)
 template <typename ADD>
 concept bool Addable1(){
 	return requires(ADD a, ADD b){
-		a+b;
+		{a+b} -> ADD;
 	};
 }
 template < Addable1 ADD>
