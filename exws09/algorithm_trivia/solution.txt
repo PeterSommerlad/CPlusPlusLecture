@@ -1,0 +1,104 @@
+Numeric algorithms:
+- test_algorithm_1: iota
+- test_algorithm_2: adjacent_difference
+- test_algorithm_3: accumulate
+- test_algorithm_4: partial_sum
+- test_algorithm_5: inner_product
+
+Property checking algorithms:
+- test_algorithm_1: any_of
+- test_algorithm_2: is_permutation
+- test_algorithm_3: mismatch
+- test_algorithm_4: all_of
+- test_algorithm_5: equal
+- test_algorithm_6: none_of
+
+Find algorithms:
+- test_algorithm_1: search
+- test_algorithm_2: count
+- test_algorithm_3: find
+- test_algorithm_4: find_first_of
+- test_algorithm_5: search_n
+- test_algorithm_6: find_if
+- test_algorithm_7: adjacent_find
+- test_algorithm_8: find_if_not
+- test_algorithm_9: count_if
+- test_algorithm_10: find_end
+
+Copy and replace algorithms:
+- test_algorithm_1: transform
+- test_algorithm_2: replace
+- test_algorithm_3: replace_copy
+- test_algorithm_4: swap_ranges
+- test_algorithm_5: replace_if
+- test_algorithm_6: copy_backward
+- test_algorithm_7: copy
+- test_algorithm_8: copy_if
+- test_algorithm_9: copy_n
+- test_algorithm_10: replace_copy_if
+
+Remove, unique and rotate algorithms:
+- test_algorithm_1: reverse_copy
+- test_algorithm_2: prev_permutation
+- test_algorithm_3: unique
+- test_algorithm_4: remove
+- test_algorithm_5: rotate_copy
+- test_algorithm_6: reverse
+- test_algorithm_7: next_permutation
+- test_algorithm_8: rotate
+- test_algorithm_9: remove_if
+- test_algorithm_10: remove_copy_if
+- test_algorithm_11: remove_copy
+- test_algorithm_12: unique_copy
+
+Fill and generate algorithms:
+- test_algorithm_1: fill_n
+- test_algorithm_2: generate_n
+- test_algorithm_3: generate
+- test_algorithm_4: fill
+
+Partition algorithms:
+- test_algorithm_1: partition_point
+- test_algorithm_2: stable_partition
+- test_algorithm_3: is_partitioned
+- test_algorithm_4: partition_copy
+- test_algorithm_5: partition
+
+Sorting algorithms:
+- test_algorithm_1: sort
+- test_algorithm_2: partial_sort_copy
+- test_algorithm_3: is_sorted
+- test_algorithm_4: partial_sort
+- test_algorithm_5: stable_sort
+- test_algorithm_6: nth_element
+
+Sorted sequence algorithms:
+- test_algorithm_1: inplace_merge
+- test_algorithm_2: binary_search
+- test_algorithm_3: merge
+- test_algorithm_4: equal_range
+- test_algorithm_5: lower_bound
+- test_algorithm_6: upper_bound
+
+Set algorithms:
+- test_algorithm_1: set_intersection
+- test_algorithm_2: set_difference
+- test_algorithm_3: set_union
+- test_algorithm_4: set_symmetric_difference
+- test_algorithm_5: includes
+
+Heap algorithms:
+- test_algorithm_1: sort_heap
+- test_algorithm_2: push_heap
+- test_algorithm_3: is_heap
+- test_algorithm_4: pop_heap
+- test_algorithm_5: is_heap_until
+- test_algorithm_6: make_heap
+
+Min-Max algorithms:
+- test_algorithm_1: min
+- test_algorithm_2: min_element
+- test_algorithm_3: minmax_element
+- test_algorithm_4: max
+- test_algorithm_5: minmax
+- test_algorithm_6: max_element
