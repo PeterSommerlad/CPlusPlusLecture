@@ -2,13 +2,15 @@
 #include "ide_listener.h"
 #include "xml_listener.h"
 #include "cute_runner.h"
+#include "squares.h"
 
 #include <vector>
 
 
 void test_fill_with_squares() {
 	std::vector<int> const expected{1, 4, 9, 16, 25, 36, 49, 64, 81, 100};
-	ASSERT_EQUAL(expected, expected);
+	auto actual = fill_with_squares();
+	ASSERT_EQUAL(expected, actual);
 }
 
 bool runAllTests(int argc, char const *argv[]) {
