@@ -24,7 +24,7 @@ void test_woccurrence_with_empty_input() {
 	std::istringstream in{};
 	std::ostringstream out{};
 
-	woccurence(in, out);
+	woccurrence(in, out);
 
 	ASSERT_EQUAL("At least seven different words expected in input.\n", out.str());
 }
