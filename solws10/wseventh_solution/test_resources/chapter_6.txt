@@ -1,0 +1,895 @@
+6
+Functional and Generic Techniques
+We have seen a lot so far, but we can not pull all of C++’s power
+yet. With power I mean that you can achieve more with less code
+you have to write. But the power comes at a price. There are some
+nifty details to care about and that sometimes result in strange and
+incomprehensible compiler error messages, especially when you first
+try something shown in this chapter. Do not be put off by these, often
+the reason is very minor.
+In this chapter we will revisit the standard library and show how
+functors can be used to parameterize some of the containers as well
+as using functors as algorithm arguments. In addition to demonstrating
+how functor classes are created through overloading the function
+call operator, we will also learn how to combine and store arbitrary
+function objects std::function. Some of the mysteries of lambdas also
+become more clear, when you see, how the compiler maps them to
+function objects internally.
+With all those insights on function objects, you will want to create
+your own functions in a generic manner, so that such function
+objects can be passed as with the standard algorithms. Introducing
+template functions shows how generic algorithms can be coded that
+work with a variety of types. As an extreme case, we will see how
+to define function templates that not only vary in the type of possible
+arguments but that can also be called with a arbitrary number of
+arguments.
+6.1 Function Objects and Lambdas
+We have already seen, how we can influence the behavior of algorithms
+with passing functions or lambda expressions. For example,
+the std::for_each() requires us to pass a function to be called
+for each element in the range. Some algorithms come with special
+overloads, such as sort(b,e,comparator) that allows us to pass a
+function for comparing the elements in the range and thus define
+the sort-order. In this chapter we explore that area further and also
+introduce overloading the function call operator(). This operator
+can only be overloaded as a member function. A class with such a
+member function is also called a functor its instances are often called functor
+function objects.
+194 lucid c++
+To provide you with a bit of terminology, like with functions that
+unary functions are called unary functions when they have a single parameter,
+int unaryfunction(int);
+unary functor functors are called unary functor when the provide an overloaded call
+operator taking one argument.
+struct unaryfunctor {
+int operator()(int i)const { return -i;}
+};
+binary functor Likewise, a binary functors takes two arguments.
+If called directly or passed to an algorithm function objects, lambdas,
+or functions behave identically. However, functor classes can
+also be used as template arguments, for example, to parameterize
+std::set.
+Introducing Functors
+The simplest and brainless functor type one can define takes no parameters
+with its function call operator and does not return anything
+from it.
+struct donothingfunctor{
+void operator()()const{}
+};
+It can be used by either creating a variable of its type and then we
+can use that variable like a function or a lambda variable to call the
+call operator member function. Another option is to just create a
+value of the functor type and call it directly.
+donothingfunctor const f{};
+f();
+donothingfunctor{}();
+One big difference between functors and functions is that a functor
+class can provide a memory of how it was called with its member
+1 Local static variables should no longer variables1. For example, a functor object might be have member varibe
+used for such a purpose. ables calls of the object, i.e., its overloaded call operator() can make
+use and change the values of the member variables. An example
+could be a functor to be used with the std::for_each() algorithms
+that sums up its arguments and also counts how often it is called.
+Algorithm for_each actually returns its passed in functor as its result,
+so we can later make use of the functors memory. The following
+functor will sum up its passed in arguments and also counts how often
+it is called. This can later be used to calculate the average of the
+values passed.
+© Peter Sommerlad - printed: 19/11/2015 - 15:27
+functional and generic techniques 195
+struct averager {
+void operator()(double d) {
+accumulator += d;
+++counter;
+}
+double sum() const { return accumulator; }
+unsigned count() const { return counter; }
+double average() const { return sum()/count(); }
+private:
+double accumulator{};
+unsigned counter{};
+};
+A simple example of using that functor takes a vector’s range and
+passes an instance of the functor as the arguments to the std::
+for_each algorithm. The result of for_each() now allows us to access
+the memorized values from the functor object.
+std::vector<double> v{7,4,1,3,5,3.3,4.7};
+auto const res=for_each(v.begin(),v.end(),averager{});
+std::cout << "sum = " << res.sum() << ’\n’
+<< "count = " << res.count() << ’\n’
+<< "average = "<< res.average() << ’\n’;
+The output is
+sum = 28
+count = 7
+average = 4
+Null-ary Functors and Lambdas for Generating Values
+In addition to std::for_each(), another algorithm benefitting from
+functors with memory is std::generate(). It calls a function without
+parameters. If not all generated values should be identical, which
+could be achieved simpler by std::fill(), such a function used in
+the context of generate() requires a side-effect or "memory" to return
+different values when called multiple times. A pure, side-effect
+free function without parameters will always return a constant. To
+achieve such a side effect with a "null-ary" function without parameters,
+requires that it either uses a global variable or a local static
+variable to keep information across calls; both are verboten. In case
+of a lambda function we can either a capture a variable of the surrounding
+scope by reference and use this as our "memory" or define
+a mutable lambda that can modify its capture variable as in the follow- mutable lambda
+ing example, that fills a vector with squares.
+std::vector<int> v;
+int x{}; // memory for lambda below
+generate_n(std::back_inserter(v),10,[&x]{
+++x; return x*x;
+});
+In such a situation, a functor can provide a better choice, especially,
+if the functionality is required more than once. The functor
+make_squares provides the same functionality and could even provide
+a constructor for setting the starting value, if needed. In addi-
+© Peter Sommerlad - printed: 19/11/2015 - 15:27
+196 lucid c++
+tion, it could be tested separately.
+class make_squares{
+int x{};
+public:
+int operator()() { ++x; return x*x; }
+};
+Using it on pre-sized vector with the algorithm generate shows an
+example of its application.
+std::vector<int> v(10);
+generate(v.begin(),v.end(),make_squares{});
+Retro 6.1: Avoid local static
+variables
+Local static variables versus functors
+In older C-programs it was common to use a (local) static
+variable to provide a function with a memory of its past executions.
+Even the standard C library provides such functions,
+for example, strtok(). int number(){
+static int counter=0; //do not do this!
+return counter++;
+}
+The static variable counter will be initialized once and its
+incremented value survives the function call. However, in
+C++, especially in the context of concurrent execution of such
+a function, this mechanism is no longer viable. It is better to
+use a functor class instead. First, you can provide multiple
+instances, e.g., for tests, where each carries its own memory.
+Second, if you do not share such a functor instance across
+threads, you do not need to synchronize access as with a
+static variable.
+Lambdas Under the Hood
+While we have encountered lambda functions in the previous section
+and also in most of the preceding chapters, you didn’t see yet a
+concise summary of what features lambdas provide. As of the C++14
+standard, lambda functions became highly flexible. You can have automatic
+return type deduction with almost arbitrary lambda function
+bodies, as long as all return statements agree on the expression type
+they are returning. In addition to the automatic determination of the
+type of capture variables, a lambda expression can also provide auto
+generic lambda as the parameter type. This feature is called generic lambda, you can
+even have lambdas with an arbitrary number of parameters, which
+will be shown, when we have seen how we can formulate functions
+like that. In the case of an auto lambda parameter, the compiler determines
+the corresponding parameter type from the argument type
+© Peter Sommerlad - printed: 19/11/2015 - 15:27
+functional and generic techniques 197
+at the call-site of the lambda expression. This is the most useful way
+to specify lambda parameters. However, if you know the type of the
+lambda arguments up front, or want to limit the use of the lambda
+to a specific parameter type, then you can specify lambda parameters
+like you can do with function parameters. You only need to
+make sure not to use a name that would shadow a lambda capture
+variable.
+If you know C++11 lambdas you will have recognized that besides
+capturing individual variables by value or by reference or by providing
+a default capture mode, you can now define lambda-local capture
+variables by introducing a name and providing an initial value for it:
+[capturevarialbe=0.0]{return capturevariable+2.5;}
+The assigned initial value’s type determines the type of the new
+lambda-local variable. Since lambdas are by default const, any variable
+captured by copy or newly defined can not be changed in the
+body of the lambda function. The reason is, that a lambda is mapped
+by the compiler to a corresponding functor class internally. The
+lambda-generated functor’s call operator is defined as a const-member
+function by default. The above lambda would be translated to the following
+functor:
+struct __compiler_generated_name {
+auto operator()()const{return capturevariable+2.5;}
+private:
+double capturevarialbe=0.0;
+}
+As an effect, it can not change any member variable that the compiler
+generates to keep the captured values. Adding the keyword mutable
+to the lambda expression after its parameter parentheses allows the mutable lambda
+lambda to change its members captured by copy. The following code
+shows the application of a mutable lambda expression for a generator
+function. Please note, that in contrast to the lambda with a reference
+capture, you can not omit the empty parameter parentheses
+in front of the keyword mutable. Calling such a mutable lambda object
+from multiple threads can result in data races, if a single lambda
+object is shared across multiple threads.
+std::vector<int> v;
+generate_n(std::back_inserter(v),10,[x=0]() mutable {
+++x; // mutable allows change of capture x
+return x*x;
+});
+If you want to specify the return type of the lambda, you can do
+so with an arrow after the parameter parentheses and the optional
+mutable keyword as follows for a lambda that computes if an integer
+argument is odd:
+[](int i)->bool { return i%2;}
+© Peter Sommerlad - printed: 19/11/2015 - 15:27
+198 lucid c++
+Lambdas in member functions and this capture
+A local variable can not be changed within a lambda’s body if
+captured by copy unless the lambda is mutable. But a member
+variable can be changed within a lambda’s body defined within
+a non-const member function of a class. The technical reason
+is that capture by copy will capture the this pointer that acts
+as a reference to the member variables of the class and it is not
+allowed to capture this by reference ([&this]). If the member
+function where the lambda is defined is non-const the member
+variables accessed within the lambda can be modified. The
+following code example demonstrates this capture by copy.
+struct DemoLambdaMemberVariables {
+int x{};
+std::vector<int> demoAccessingMemberFromLambda() {
+std::vector<int> v;
+generate_n(back_inserter(v),10,[=] {
+++x; // member x can be changed
+return x*x;
+});
+return v;
+}
+};
+Caution 6.1: Member variables
+are always captured by
+reference
+Transforming Ranges and Standard Functors
+In the section 6.1 we have seen useful functors without parameters
+and in this section we will look at unary and binary functors. The
+function to traverse a range and change passing its elements to a
+function is called transform(). It takes one or two ranges as input
+and copies the result of a function applied to corresponding elements
+to an output range. For example, to negate the values in a vector one
+can use the following code.
+transform(v.begin(),v.end(),
+v.begin(),[](int x){return -x;});
+While this looks simple enough, there is special support applying an
+operator with a set of functor template classes in the standard library.
+The above example can be written passing an instance of the functor
+class std::negate<int> provided by the header <functional>.
+transform(v.begin(),v.end(),
+v.begin(),std::negate<int>{});
+Both of the solutions can also be formulated in a more generic way,
+by using either auto as the lambda parameter type or by omitting
+the template argument to std::negate<>.
+© Peter Sommerlad - printed: 19/11/2015 - 15:27
+functional and generic techniques 199
+transform(v.begin(),v.end(),
+v.begin(),[](auto x){return -x;});
+transform(v.begin(),v.end(),
+v.begin(),std::negate<>{});
+Please consult Table 1.3 for the names and availability of the other
+standard functor classes. They can not only be used with transform,
+but with many other algorithms taking (often an optional) function
+parameter, such as accumulate(), inner_product(), adjacent_difference
+(), and partial_sum(). See for example fibo.cpp (Listing 5.14) and
+squares.cpp (Listing 5.15). 2 2 When you get a compile error from
+applying a functor class, remember to
+instantiate a function object by adding
+braces to pass it as an argument to the
+algorithm function.
+The functors representing a binary predicate, i.e., the relational
+operators, such as std::greater<>, can be used with the many algorithms
+allowing a comparison, or an equality check. For example, to
+sort a vector in descending order, one can use the following code.
+sort(v.begin(),v.end(),std::greater<>{});
+Those algorithms that use operator< as their default, e.g., sort(),
+mustn’t be called with a reflexive comparison predicate such as std
+::greater_equal<>{}. A reflexive predicate is one where predicate(x,x)
+is true. If you define your own comparison predicate, e.g., remember
+that the standard requires it to provide a strict weak ordering. strict weak ordering
+In mathematical terms this means the predicate must be irreflexive,
+antisymmetric, and transitive as well as the equivalence relation defined
+by the predicate is transitive. Two elements x and y are considered
+equivalent if neither p(x,y) nor p(y,x) is true, i.e., if neither is less
+than the other, both are considered the same. In code that means the
+following conditions must hold for a comparison predicate p(x,y):
+auto equiv=[](x,y)->bool{return !p(x,y)&& !p(y,x);}
+assert(!p(x,x)); //irreflexive
+if (p(x,y))assert(!p(y,x)); //antisymmetric
+if (p(x,y)&& p(y,z))assert(p(x,z)); //transitive
+if (equiv(x,y)&& equiv(y,z))assert(equiv(x,z));
+Parameterizing Associative Containers
+The algorithms using predicates or functions as arguments are one
+part of the standard library where functors can be used. However,
+also some of the containers can be parameterized using functor types
+as template arguments. This is an area where neither regular functions
+nor lambdas can be used, but a functor class is required. As
+example, let us consider std::set that is declared as follows3: 3 I ignore the expert-only third template
+template <typename Key, typename Comp=less<Key>> class set; parameter Allocator here.
+The second template parameter is a binary predicate functor, that is
+defaulted to std::less<Key> resulting in the set being sorted in ascending
+order. If we want a set to be sorted in the opposite order, we
+can provide std::greater instead as in the following example. However,
+that does not serve that much, since we could have traversed the
+© Peter Sommerlad - printed: 19/11/2015 - 15:27
+200 lucid c++
+std::set<double> can be broken by NaN
+Even with the built-in standard types there exist cases, where
+using them as a key in an associative container the built-in
+less-than operator is not behaving properly. For example, try
+to create a std::set<double> and after inserting some regular
+numbers insert the result of the division 0.0/0.0 which is the
+special value NaN (not-a-number). That special value is used to
+represent calculations that have an undefined result. To avoid
+masking such a broken result value, NaN will "infect" all computations
+using such a value and the result of any operation on
+NaN is again NaN but in addition, comparing NaN with any floating
+point number including itself is always false. That means
+that both x < NaN and NaN < x are false, which is exactly the
+condition for equivalence of x and NaN. As a result, once you
+inserted NaN, which could be the result of a computation, into
+a std::set<double> all further operations on the set are undefined
+behavior, because the precondition on the sorting by the
+less-than operator is violated.
+Caution 6.2: Beware of floating
+point numbers as keys in
+associative containers
+set in reverse order with the iterators provided by rbegin()/rend()
+to achieve a similar effect.
+std::set<int,std::greater<>> reverse_int_set{};
+If we want a multiset of strings where the case of letters shouldn’t
+play a role like in a dictionary we can implement a functor caseless
+and use it in the following declaration:
+using std::string;
+using caseless_set=std::multiset<string,caseless>;
+The functor’s call operator can be implemented using the algorithm
+lexicographical_compare parameterized with a lambda that uses
+4 There is a more complicated way us- std::tolower(char) from header<cctype>.4
+ing locales to achieve a case-less comparison
+of characters with respect to a
+language locale.
+struct caseless{
+using string=std::string;
+bool operator()(string const &l, string const &r){
+return std::lexicographical_compare(
+l.begin(),l.end(),r.begin(),r.end(),
+[](char l,char r){
+return std::tolower(l) < std::tolower(r);
+});
+}
+};
+With all these definitions, we can create a sorted list of all words, regardless
+of case, from standard input with the following statements:
+© Peter Sommerlad - printed: 19/11/2015 - 15:27
+functional and generic techniques 201
+using in=std::istream_iterator<string>;
+caseless_set wlist{in{std::cin},in{}};
+std::ostream_iterator<string> out{std::cout,"\n"};
+copy(wlist.begin(),wlist.end(),out);
+The comparison functor template parameter can be used for all
+sorted associative containers. You might expect, that you can also
+parameterize the unordered associative containers and yes you can.
+However, doing so correctly and well is a bit harder. One reason
+already mentioned is the missing functionality for specifying good
+hash functions for non-standard types, the standard library only requires
+some specializations of the functor std::hash<T> that is the
+default hash function used for the unordered containers.
+template <typename Key, typename Hash = hash<Key>,
+typename Pred = equal_to<Key>>
+class unordered_set;
+As you can see, you need not only provide a functor for computing
+the hash value, but also a predicate functor to compare the keys for
+equality. If two key values compare equal, they also must produce
+the same hash value. I recommend that you stick to those key types,
+e.g., std::string where the C++ standard library provides a corresponding
+std::hash<> template specialization. A future standard
+will provide the infrastructure to construct your own hash functions,
+but this is an advanced topic not covered here.
+6.2 Keeping, Passing and Returning Functors
+The book Design Patterns [GHJV94] introduces the Command design
+pattern that talks about encapsulating (a request to) a function
+as an object. In C++ we have lambda objects, functors and even
+(member-)function pointers that allow us to refer to functionality
+from a variable or an expression and thus store and later call such
+a function. However, so far we were only used to keep such function
+objects using auto type deduction for variables or by spelling
+out the concrete function pointer type or functor class type. For
+storing arbitrary function-like objects that can be called with a given
+signature, the standard library provides us with the class template
+std::function<F>. As its template argument we specify the call signature
+of the functions/function objects we want to store within such
+a std::function object. This call signature is formed like a function
+signature from the return type and parameter types, by omitting the
+otherwise present function name. For example, to keep a predicate
+on int values we define a variable as follows:
+std::function<bool(int)> apredicate{};
+Like a plain function pointer, such a variable of a std::function type
+can be "empty", i.e., without any concrete function or function object
+assigned. Therefore, we need to check if it is non-empty, before
+we try to call the underlying function through the call operator()
+© Peter Sommerlad - printed: 19/11/2015 - 15:27
+202 lucid c++
+of std::function. An "empty" std::function compares equal with
+nullptr as well as evaluates to false in a condition, like a function
+pointer with the a null value would do.
+if (apredicate) { // implicit bool conversion
+out << "pred(42) is " << apredicate(42) << ’\n’;
+} else {
+out << "empty function holder\n";
+}
+We can assign different functions or lambdas as long as they can be
+called with the given signature, even if automatic argument or return
+type conversions need to be applied.
+apredicate = [](int i) {return i%2;};
+Assigning the nullptr value to a std::function variable "empties" the
+function object and prohibits further calls through it.
+apredicate = nullptr;
+The standard function holder type can also be used as a function
+parameter or return type, to enable us to pass arbitrary functions,
+lambdas or functor objects with a given call signature to and
+from a function. We will see later, that there is another way to pass
+such function objects as arguments using a generic parameter (section
+6.4).
+void apply_and_print(std::ostream& out,
+std::function<bool(int)> apredicate)
+6.3 Iterators for Utilizing Algorithms
+In the previous sections we have seen how functors can be used to parameterize
+algorithms and containers of the standard library. However,
+all algorithms work on iterators. You have already seen some
+special purpose iterators provided by the standard library that are
+not directly bound to a container, for example, std::istream_iterator
+or std::inserter.
+This section explains how you can create your own iterator classes
+first, but also gives a brief overview of Boost’s iterator library[DA11],
+that often can be used instead of DIY iterator classes to achieve special
+results.
+Future versions of the C++ standard will extend the range concept
+given by iterators by providing a range abstraction within a single
+parameter of the library’s algorithms. This will allow easier wrapping
+of ranges than Boost iterators allow. If you really are interested
+in what direction the standardization will take, you can take a look
+at Boost’s Range library[TO11].
+TODO! Defining own iterator types is only part of C++ advanced
+© Peter Sommerlad - printed: 19/11/2015 - 15:27
+functional and generic techniques 203
+DIY Iterators
+Iterators in the standard library are categorized by the strength of
+the available operation on iterator objects (see section 5.2. While the
+categories can be questioned they serve the purpose of selecting appropriate
+implementations of algorithms, where a "stronger" iterator
+can be used in a more efficient algorithm. To allow this automatic
+selection of appropriate algorithm function overloads the standard
+library provides a mechanism called iterator traits. iterator traits
+For each iterator category the standard defines an otherwise empty
+class type that is used to tag the concrete iterator classes. By convention
+that tagging is defined through a type alias with the name
+iterator_category. This type must be defined to be equal to one of
+the standard library’s iterator category tag types:
+• std::input_iterator_tag
+• std::output_iterator_tag
+• std::forward_iterator_tag
+• std::bidirectional_iterator_tag
+• std::random_access_iterator_tag
+There exist further expectations of available type aliases in an iterator
+type that might be used by the algorithms, e.g., to create an
+auxiliary variable holding the value returned from a iterator.
+value_type denotes the type of the values that can be referred through
+the iterator.
+difference_type denotes the type for distance(). Usually the default
+is sufficient.
+pointer denotes the type for a pointer to the value type. Usually the
+default is sufficient.
+reference denotes the type for a reference to the value type. Usually
+the default is sufficient.
+Note that C++11 obsoletes much of the underlying mechanisms, because
+of its better ability for type deduction and type traits classes.
+However, I explain the basics to better appreciate the underlying
+needs and also be able to understand potential error messages with
+DIY iterator classes that might miss to follow the conventions expected
+by the standard library.
+If you create your own iterator class, you can inherit from std::
+iterator template and provide your iterator category and your value
+type as the base class’ template arguments. In addition you need to
+provide implementations of operator functions required for the iterator
+category you promise. For example, if your iterator claims to be
+a bidirectional iterator you need to implement operator==, operator
+!=, unary operator*, operator++, and operator--. The latter ones
+© Peter Sommerlad - printed: 19/11/2015 - 15:27
+204 lucid c++
+in both prefix and suffix overloads. We will see in a moment on how
+to simplify that amount of work by reducing the need for boilerplate
+code. The intiterator.cpp (Listing 6.1) shows you a complete iterator
+implementation for an iterator delivering a range of int values.
+Listing 6.1: intiterator.cpp
+#include <iterator>
+struct intiterator
+: std::iterator<std::input_iterator_tag,int>
+{
+explicit intiterator(value_type start=0)
+:value{start}{}
+bool operator==(intiterator const &r) const {
+return value == r.value;
+}
+bool operator!=(intiterator const &r) const {
+return !(*this == r);
+}
+value_type operator*() const { return value; }
+intiterator &operator++() {
+++value;
+return *this;
+}
+intiterator operator++(int) {
+auto old= *this;
+++(*this);
+return old;
+}
+private:
+value_type value;
+};
+The iterator class intiterator contains a lot of routine code, especially
+for defining operator!= and the postfix operator++. As we
+have already seen in section ??, there are library solutions allowing
+us to just inherit such tedious code. If we #include <boost/
+operators.hpp>, we can inherit from the provided iterator-helper
+class templates and thus can make our own iterators’ implementation
+simpler. For each iterator category a corresponding helper class
+template as a base class is available. You need to pass your derived
+class and the iterator’s value type as template arguments.
+• boost::input_iterator_helper<ITER,VALUE>
+• boost::output_iterator_helper<ITER> - doesn’t need a value type
+• boost::forward_iterator_helper<ITER,VALUE>
+• boost::bidirectional_iterator_helper<ITER,VALUE>
+• boost::random_access_iterator_helper<ITER,VALUE>
+With these helpers we can create a simpler version of our integer
+counting input iterator as given in intiteratorboost.cpp (Listing 6.2).
+© Peter Sommerlad - printed: 19/11/2015 - 15:27
+functional and generic techniques 205
+As you can see, we now can omit defining operator!= and operator
+++(int) and still get the desired behavior.
+#include <boost/operators.hpp>
+struct intiteratorboost
+: boost::input_iterator_helper<intiteratorboost,int>
+{
+explicit intiteratorboost(value_type start=0)
+:value{start}{}
+bool operator==(intiteratorboost const &r) const {
+return value == r.value;
+}
+value_type operator*() const { return value; }
+intiteratorboost &operator ++() {
+++value;
+return *this;
+}
+private:
+value_type value;
+};
+Listing 6.2: intiteratorboost.cpp
+Defining an Output Iterator
+Iterators that only consume values, aka output iterators, are a bit degenerated
+compared to what we have seen so far. An output-only
+iterator comes as a single iterator and there is no means to mark
+when it is "done". So there is no need to compare such iterators. In
+addition, since there is no underlying structure providing values that
+a plain output iterator needs to navigate, its increment operator++
+usually is a "do nothing" operation. Its dereference operator* usually
+returns the iterator object to be able to overload the assignment
+operator that actually obtains the value to be "outputted". To understand
+these tricks, just consider a typical use of an output iterator in
+the std::copy algorithm:
+template<class Input, class Output>
+Output copy (Input first, Input end, Output result)
+{
+while (first!=end){
+*result = *first;
+++result; ++first;
+}
+return result;
+}
+The output iterator result is de-referenced and to have the iterator
+object actually obtain the value provided by *first the only
+means is to return the output iterator itself from its operator*. Then
+overloading its assignment operator= taking the value type allows it
+© Peter Sommerlad - printed: 19/11/2015 - 15:27
+206 lucid c++
+to output the value copied. A simple example writing the value to
+std::cout is given in outputiteratorexample.cpp (Listing 6.4).
+Listing 6.3: outputiteratorexample.cpp
+struct MyIntOutIter
+: std::iterator<std::output_iterator_tag,int> {
+MyIntOutIter const& operator++() const {
+return *this; // no op
+}
+MyIntOutIter const& operator*() const {
+return *this; // accessable = overload
+}
+void operator=(value_type val) const {
+std::cout << "val= "<<val<<’\n’;
+}
+};
+The common coding of a no-op operator++ and a self-referencing
+operator* again is provided by boost::output_iterator_helper and
+thus the only thing remaining is overloading the assignment operator
+to achieve the effect of outputiteratorexample.cpp (Listing 6.4).
+Listing 6.4: outputiteratorexample.cpp
+struct MyIntOutIterBoost
+:boost::output_iterator_helper<MyIntOutIterBoost>{
+void operator=(int value) const {
+std::cout << "value= "<< value<<’\n’;
+}
+};
+Please note, that these example output iterators are a quite special
+case to demonstrate how a data sink can be implemented as an
+iterator. Most of the time, you will use a container’s iterators as
+an algorithm’s output iterator parameter to collects the algorithm’s
+output sequence.
+Defining a stream Input Iterator
+After we have seen an output iterator that uses a stream as a data
+sink, you might ask, how one could implement an input iterator
+using an istream. Doing so, we will follow the conventions used
+by std::istream_iterator, i.e., using a default-constructed iterator
+object to denote the end-iterator while an iterator for the begin of the
+sequence takes a std::istream as its argument. This requires some
+tricks, because we can not copy a std::istream object. Thus we need
+to pass it and keep it by reference and each user of our input iterator
+class must guarantee that the stream object passed survives all copies
+of the so created iterator object. This leads to the problem on how to
+default construct the input iterator without having such a reference
+parameter. There are two "hacky" solutions to this problem:
+© Peter Sommerlad - printed: 19/11/2015 - 15:27
+functional and generic techniques 207
+• First, we use a hidden global variable of type std::istringstream
+that is used for the default constructed case and is guaranteed to
+be not good(). This incurs the bad practice of having a global variable
+and might incur data-race problems in multi-threaded code.
+As an example consider class IntInputter defined in IntInputter.h
+(Listing 6.5).
+• Second, we use a "naked" pointer to a std::istream to represent a
+reference that can be empty. A default-constructed input iterator
+will initialize that pointer with nullptr and the other constructor
+will keep the address of the passed std::istream object there. The
+pointer version example uses boost’s support for iterator helpers
+to reduce the amount of coding and is defined in IntInputterPtr-
+Boost.h (Listing 6.6).
+#ifndef IntInputter_H_
+#define IntInputter_H_
+#include <iosfwd>
+#include <iterator>
+struct IntInputter
+: std::iterator<std::input_iterator_tag,int>{
+IntInputter();
+explicit IntInputter(std::istream& in)
+:input(in){} // () for reference in C++11 not {}
+value_type operator*() const { return value;}
+IntInputter& operator++();
+IntInputter operator++(int){
+IntInputter old{*this};
+++(*this);
+return old;
+}
+bool operator==(IntInputter const & other) const;
+bool operator!=(IntInputter const & other) const{
+return !(*this == other);
+}
+private:
+std::istream &input;
+value_type value{};
+};
+#endif /* IntInputter_H_ */
+Listing 6.5: IntInputter.h
+For both versions, we need to define, what means that two iterators
+are equal. The only relevant case, is to compare a stream input iterator
+with the default constructed one, to figure out, when all input
+is consumed. That means, only such iterators are considered equal
+that can no longer retrieve any input, either because it is default
+constructed, or its underlying istream is no longer good(). TODO!
+While incrementing the iterators is an empty operation, retrieving
+the current value with operator*, means actually reading from the
+stream. For class IntInputter the remaining implementation de-
+© Peter Sommerlad - printed: 19/11/2015 - 15:27
+208 lucid c++
+#ifndef IntInputterPtrBoost_H_
+#define IntInputterPtrBoost_H_
+#include <iosfwd>
+#include <boost/operators.hpp>
+struct IntInputterPtrBoost
+:boost::input_iterator_helper<IntInputterPtrBoost,int>{
+IntInputterPtrBoost() = default;
+explicit IntInputterPtrBoost(std::istream& in)
+:input(&in){}
+IntInputterPtrBoost::value_type operator*() const {
+return value;
+}
+IntInputterPtrBoost& operator++();
+bool operator==(
+IntInputterPtrBoost const & other) const;
+private:
+std::istream *const input{};
+value_type value{};
+};
+#endif /* IntInputterPtrBoost_H_ */
+Listing 6.6: IntInputterPtrBoost.h
+tails are given in IntInputter.cpp (Listing 6.7). Please note, that using
+a global variable is not a recommended practice in multi-threaded
+code. The version using a non-owning plain pointer to keep the
+Listing 6.7: IntInputter.cpp
+#include "IntInputter.h"
+#include <sstream>
+namespace {
+std::istringstream empty{}; // a global helper needed...
+}
+IntInputter::IntInputter()
+: input(empty){ // C++11 (empty), C++14 {empty}
+input.clear(std::ios_base::eofbit);
+// guarantee default input is not good()
+}
+IntInputter& IntInputter::operator++(){
+if (input) {
+input >> value;
+if (input.eof() && !input.fail())
+input.clear();
+}
+return *this;
+}
+bool IntInputter::operator==(
+IntInputter const & other) const{
+return !input.good() && !other.input.good();
+}
+© Peter Sommerlad - printed: 19/11/2015 - 15:27
+functional and generic techniques 209
+istream reference around, only relies on the more abstract header
+<istream> but requires a bit more complicated logic, because each
+pointer usage, requires checking it for validity. The default member
+initializer guarantees that the default constructed iterator will have
+its pointer member initialized with nullptr that denotes a pointer
+referring no object and thus an invalid pointer. When used in a
+boolean context the nullptr value will always evaluate to false, so
+a check doesn’t need to explicitly compare with it as given in IntInputterPtrBoost.
+cpp (Listing 6.8).
+#include "IntInputterPtrBoost.h"
+#include <istream>
+IntInputterPtrBoost& IntInputterPtrBoost::operator ++(){
+if (input){
+(*input) >> value;
+if (input->eof() && !input->fail())
+input->clear();
+}
+return *this;
+}
+bool IntInputterPtrBoost::operator==(
+IntInputterPtrBoost const & other) const {
+return (!input || !input->good()) &&
+(!other.input || !other.input->good());
+}
+Listing 6.8: IntInputterPtrBoost.cpp
+Using Boost’s Iterator Library
+While we have seen how to construct our own iterator classes, I’d
+like to point you to Boost’s Iterator library, that provides some of the
+features of the example iterators directly and also, provides means to
+create iterators based on other iterator ranges that allow filtering the
+visited values or transforming the values by a function. There are
+more features available, but I don’t want to repeat all of the library’s
+excellent documentation. I’d rather like to show you some small
+examples.
+The class template boost::counting_iterator<T> supports types
+that can be incremented. This provides a bit more flexible but simpler
+way to initialize a std::vector<int> with a sequence of values
+than the code in intiterator.cpp (Listing 6.1).
+using counter=boost::counting_iterator<int>;
+std::vector<int> v(counter{1},counter{11});
+A filtering iterator constructed from boost::make_filter_iterator
+wraps an exisiting range and uses a predicate to only "visit" those
+values from the range that match the predicate. In contrast to first
+applying std::copy_if and collect the result in a container that can
+© Peter Sommerlad - printed: 19/11/2015 - 15:27
+210 lucid c++
+later be iterated, a filter iterator does that without explicitly memorizing
+the intermediate result. In addition, the filter iterator allows
+to filter an open range, e.g., from an istream_iterator, that can not
+easily be achieved, when the whole filtered range needs to be stored.
+Only outputting the odd numbers of our previously constructed vector
+can be achieved like the following code shows.
+using boost::make_filter_iterator;
+copy(make_filter_iterator(odd{},v.begin(),v.end()),
+make_filter_iterator(odd{},v.end(),v.end()),
+out);
+std::cout << ’\n’;
+Note that we need to pass begin and end iterators of the range to the
+first constructed filtering iterator adapter and twice the end iterator
+the the filtering iterator denoting the "end". This is due to the fact,
+that at the time of construction, it is unknown, how many steps the
+underlying iterator needs to advance, before the predicate is true and
+not step beyond the end of the underlying range.
+The last trick I’d like to share is the transforming iterator adapter
+that like the filtering iterator wraps an existing range and applies
+a function before delivering the values. In contrast to the filtering
+iterator, it only needs to take one iterator, because it delivers one
+value per value from the original range.
+using std::placeholders::_1;
+auto sq=bind(std::multiplies<int>{},_1,_1);
+using boost::make_transform_iterator;
+copy(make_transform_iterator(v.begin(),sq),
+make_transform_iterator(v.end(),sq),
+out);
+6.4 Flexibility with Generic Functions
+Consider The following two overloads of a function to determine the
+minimum of two numbers. You see that except for parameter and
+return types the code in the function body is identical. We can easily
+clone these functions and add more overloads for all built-in types.
+That is tedious but possible.
+inline int min(int a, int b){
+return (a < b)? a : b ;
+}
+inline double min(double a, double b){
+return (a < b)? a : b ;
+}
+Another problem you might get, is that the compiler will apply
+automatic conversions to the arguments of the call to match the parameter
+type. That is Ok, if there is only one best match for these
+© Peter Sommerlad - printed: 19/11/2015 - 15:27
+functional and generic techniques 211
+conversions, but it can easily lead to ambiguities when you call the
+function with arguments of other types than those provided as parameters
+and conversion of the same rank can lead to different overloads.
+For example, calling min(1u,2u) will lead to a compile error,
+because the compiler can either convert the unsigned arguments to
+double to call min(double,double) or instead convert them to int
+for calling min(int,int). Both conversions have the same rank and
+thus the call itself is ambiguous. Other calls might fail similarly.
+But there is a solution to that problem. You can instead define
+a function template (also called template function) that maps the
+identical body and provides a placeholder for the parameter and
+return type. This function will work with many types, even those
+that are not yet invented.
+template <typename T>
+T const& min(T const& a, T const& b){
+return (a < b)? a : b ;
+}
+The definition or declaration of a template is always introduced with
+the keyword template following by a pair of angle brackets (<...>)
+between those angle brackets the template’s parameters, aka placeholders,
+are defined. For the moment, we will only consider types
+as template parameters. Here, we use a single template parameter
+T that is a type and thus introduce this template parameter with the
+keyword typename.
+You might wonder that this looks similar to what you could realize
+with auto as the type for lambda parameters and the underlying
+mechanism for determining the concrete parameter type from the
+type of the function call argument is exactly the same for templatedependent
+function template parameter types as it is for auto lambda
+parameters. As a lambda we could have written min as follows:
+auto const min=[](auto const &a, auto const&b){
+return (a < b)? a : b ;
+};
+Function template Syntax
+definition, explicit template arguments, parameter type deduction,
+Calling template Functions
+, template syntax for defining and calling functions
+Functions taking Ranges, Lambdas and other Functions
+Dealing with variable number of Function arguments
+Advanced User-defined Literals
+varargs resp. variadic templates
+© Peter Sommerlad - printed: 19/11/2015 - 15:27
+212 lucid c++
+Function style Macros should be abandoned
+In C flexibility in function argument types for computing the
+minimum of two values was solved through a macro, that
+easily worked with many different types, but with the disadvantage
+that side-effects could happen when expressions are
+passed as an argument. Please refrain from using such function
+style macros, even if you know how to construct them
+well, because they undermine the type system and should
+no longer be considered a viable practice for C++. They are
+a legacy from C.
+#define MIN(a,b) ((a)<(b)?(a):(b))
+auto z=MIN(++x,++y);
+Retro 6.2: Ban Functionstyle
+Macros
+type safe print
+udl for binary values with variadic template
+6.5 Exercises
+Too simple Rational Numbers
+Output for type XXX
+© Peter Sommerlad - printed: 19/11/2015 - 15:27
