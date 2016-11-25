@@ -4,5 +4,5 @@
 #include <ostream>
 
 void woccurrence(std::istream & in, std::ostream & out) {
-	//TODO: Implement your woccurence functionality here
+	//TODO: Implement your woccurrence functionality here
 }
