@@ -23,12 +23,15 @@
 #include "cute_base.h"
 #include "cute_diff_values.h"
 #include "cute_determine_traits.h"
+#include "cute_range.h"
 #include <cmath>
 #include <limits>
 #include <algorithm>
 
 
 namespace cute {
+
+
 	namespace cute_do_equals {
 		// provide some template meta programming tricks to select "correct" comparison for floating point and integer types
 		template <typename ExpectedValue, typename ActualValue, typename DeltaValue>
@@ -214,4 +217,7 @@ namespace cute {
 #define ASSERT_EQUAL_DELTAM(msg,expected,actual,delta) cute::assert_equal_delta((expected),(actual),(delta),\
 		CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__)
 #define ASSERT_EQUAL_DELTA(expected,actual,delta) ASSERT_EQUAL_DELTAM(#expected " == " #actual " with error " #delta  ,(expected),(actual),(delta))
+
+#define ASSERT_EQUAL_RANGES_M(msg,expbeg,expend,actbeg,actend) ASSERT_EQUALM(msg,cute::make_range(expbeg,expend),cute::make_range(actbeg,actend))
+#define ASSERT_EQUAL_RANGES(expbeg,expend,actbeg,actend) ASSERT_EQUAL_RANGES_M("range{" #expbeg "," #expend "} == range{" #actbeg "," #actend "}",expbeg,expend,actbeg,actend)
 #endif /*CUTE_EQUALS_H_*/
