@@ -28,7 +28,7 @@ struct count_word_pair_comparator {
 using words = std::set<count_word_pair, count_word_pair_comparator>;
 
 words_with_count count_words(std::istream & in) {
-	std::map<word::Word, unsigned> word_occurrences{};
+	words_with_count word_occurrences{};
 	std::for_each(
 			word_input_iterator{in},
 			word_input_iterator{},
