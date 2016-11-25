@@ -33,6 +33,13 @@ void test_median_all_int_permutations() {
 	} while (std::next_permutation(v.begin(), v.end()));
 }
 
+void test_median_string_literals_all_permutations() {
+	std::vector<char const *> v{"aa", "ab", "ac"};
+		do {
+			ASSERT_EQUAL("ab", median(v[0], v[1], v[2]));
+		} while (std::next_permutation(v.begin(), v.end()));
+}
+
 void runAllTests(int argc, char const *argv[]) {
 	cute::suite s;
 	s.push_back(CUTE(test_median_double));
@@ -41,6 +48,7 @@ void runAllTests(int argc, char const *argv[]) {
 	s.push_back(CUTE(testmedianCharPtr));
 	s.push_back(CUTE(test_median_all_int_permutations));
 	s.push_back(CUTE(test_median_with_1_2_3));
+	s.push_back(CUTE(test_median_string_literals_all_permutations));
 	cute::xml_file_opener xmlfile(argc, argv);
 	cute::xml_listener<cute::ide_listener<> > lis(xmlfile.out);
 	cute::makeRunner(lis, argc, argv)(s, "AllTests");
