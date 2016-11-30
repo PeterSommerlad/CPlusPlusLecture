@@ -62,13 +62,12 @@ std::ostream & operator<<(std::ostream & out, words::value_type const & count_wo
 
 }
 
-void print_favorite_words(std::ostream& out, words const & all_words, unsigned long long limit) {
+void print_favorite_words(std::ostream& out, words const & all_words,  words::size_type limit) {
 	auto nof_words = all_words.size();
 	auto nof_displayed_elements = std::min(limit, nof_words);
-	auto end = std::next(std::begin(all_words), nof_displayed_elements);
-	std::copy(
+	std::copy_n(
 			std::begin(all_words),
-			end,
+			nof_displayed_elements,
 			std::ostream_iterator<words::value_type>{out, "\n"});
 }
 
