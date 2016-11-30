@@ -2,24 +2,11 @@
 #define MEDIAN_H_
 
 #include <string>
+#include <algorithm>
 
 template<typename T>
 T const &median(T const &a, T const &b, T const &c) {
-	if (a < b) {
-		if (b < c)
-			return b;
-		else if (a < c)
-			return c;
-		else
-			return a;
-	} else {
-		if (a < c)
-			return a;
-		else if (b < c)
-			return c;
-		else
-			return b;
-	}
+	return std::max(std::min(a, b), std::min(std::max(a, b), c));
 }
 
 // overload for pointers, don't allow pointers
