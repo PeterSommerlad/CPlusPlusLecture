@@ -56,5 +56,5 @@ bool is_prime_boost(unsigned long long n) {
 void primes(std::ostream & out, unsigned long long limit) {
 	std::vector<unsigned long long> primes(limit);
 	std::iota(std::begin(primes), std::end(primes), 1);
-	std::copy_if(std::begin(primes), std::end(primes), std::ostream_iterator<unsigned long long>{out, "\n"}, is_prime_loopless);
+	std::copy_if(std::begin(primes), std::end(primes), std::ostream_iterator<unsigned long long>{out, "\n"}, is_prime_boost);
 }

@@ -28,6 +28,13 @@ void test_print_primes_up_to_two() {
 	ASSERT_EQUAL("2\n", output.str());
 }
 
+void test_print_primes_up_to_three() {
+	std::ostringstream output{};
+	primes(output, 3);
+	ASSERT_EQUAL("2\n3\n", output.str());
+}
+
+
 void test_print_primes_up_to_1000() {
 	std::ostringstream output{};
 	primes(output, 1000);
@@ -39,6 +46,7 @@ bool runAllTests(int argc, char const *argv[]) {
 	//TODO add your test here
 	s.push_back(CUTE(test_two_is_prime));
 	s.push_back(CUTE(test_print_primes_up_to_two));
+	s.push_back(CUTE(test_print_primes_up_to_three));
 	s.push_back(CUTE(test_print_primes_up_to_1000));
 	cute::xml_file_opener xmlfile(argc, argv);
 	cute::xml_listener<cute::ide_listener<>> lis(xmlfile.out);
