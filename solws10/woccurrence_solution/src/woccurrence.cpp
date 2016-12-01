@@ -38,19 +38,15 @@ struct word_line_collector {
 	}
 
 	void print(std::ostream & out) const {
-		auto const word_line_to_string = [](auto const & word_lines) {
-				std::ostringstream output{};
-				output << word_lines.first << " ";
-				std::copy(
-						std::begin(word_lines.second), std::end(word_lines.second),
-						std::ostream_iterator<unsigned>{output, " "});
-				return output.str();
-			};
-		std::transform(
+		std::for_each(
 				std::begin(word_lines), std::end(word_lines),
-				std::ostream_iterator<std::string>{out, "\n"},
-				word_line_to_string
-		);
+				[&](auto const & word_line){
+					out << word_line.first << " ";
+					std::copy(
+							std::begin(word_line.second), std::end(word_line.second),
+							std::ostream_iterator<unsigned>{out, " "});
+					out << '\n';
+				});
 	}
 private:
 	unsigned line_number{};
