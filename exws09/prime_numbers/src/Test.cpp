@@ -22,7 +22,7 @@ void test_two_is_prime() {
 	ASSERTM("Expected 2 to be prime", is_prime(2));
 }
 
-void test_print_primes_smaller_than_two() {
+void test_print_primes_up_to_two() {
 	std::ostringstream output{};
 	primes(output, 2);
 	ASSERT_EQUAL("", output.str());
@@ -32,7 +32,7 @@ bool runAllTests(int argc, char const *argv[]) {
 	cute::suite s { };
 	//TODO add your test here
 	s.push_back(CUTE(test_two_is_prime));
-	s.push_back(CUTE(test_print_primes_smaller_than_two));
+	s.push_back(CUTE(test_print_primes_up_to_two));
 	cute::xml_file_opener xmlfile(argc, argv);
 	cute::xml_listener<cute::ide_listener<>> lis(xmlfile.out);
 	auto runner { cute::makeRunner(lis, argc, argv) };
