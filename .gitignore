@@ -29,10 +29,13 @@
 
 # Cevelop workspace defaults and project files
 Debug
+Release
 .metadata/
-.settings/
 *Test.xml
 .*.html
+/**/.settings/*
+!language.settings.xml
+
 
 # Mac OS Meta Files
 .DS_Store
