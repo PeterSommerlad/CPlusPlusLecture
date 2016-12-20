@@ -1,9 +1,9 @@
+#include "indexableSet.h"
+
 #include "cute.h"
 #include "ide_listener.h"
 #include "xml_listener.h"
 #include "cute_runner.h"
-
-#include "indexableSet.h"
 
 #include <vector>
 #include <string>
@@ -149,8 +149,7 @@ void test_back_on_non_empty_gets_last() {
 void test_elements_in_iterator_range_with_custom_comparator() {
 	indexableSet<std::string, std::greater<>> champions { "Yankees", "Giants", "Cardinals", "Sox", "Royals", "Cubs" };
 	std::vector<std::string> expected { "Yankees", "Sox", "Royals", "Giants", "Cubs", "Cardinals" };
-	std::vector<std::string> actual { std::begin(champions), std::end(champions) };
-	ASSERT_EQUAL(expected, actual);
+	ASSERT_EQUAL_RANGES(std::begin(expected), std::end(expected), std::begin(champions), std::end(champions));
 }
 
 bool runAllTests(int argc, char const *argv[]) {
