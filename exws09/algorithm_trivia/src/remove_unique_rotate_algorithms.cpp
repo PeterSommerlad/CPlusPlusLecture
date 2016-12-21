@@ -17,6 +17,8 @@
 // * reverse_copy
 // * rotate
 // * rotate_copy
+// * next_permutation
+// * prev_permutation
 
 
 namespace {
