@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
 	log_and_do(s); //lvalue
 
 	std::cout << "--- calling log_and_do(S{})\n";
-	log_and_do(S{}); //rvalue - does not compile
+	log_and_do(S{}); //rvalue
 
 	std::cout << "--- end\n";
 }
