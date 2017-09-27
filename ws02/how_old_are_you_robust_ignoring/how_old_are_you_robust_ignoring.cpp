@@ -2,7 +2,7 @@
 #include <sstream>
 #include <limits>
 int inputAge(std::istream& in) {
-	while (in) {
+	while (in.good()) {
 		int age{-1};
 		if (in>>age)
 			return age;
