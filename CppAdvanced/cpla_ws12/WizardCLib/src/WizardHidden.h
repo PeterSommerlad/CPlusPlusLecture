@@ -5,6 +5,7 @@
 #include "WizardIngredients.h"
 
 namespace unseen{
+
 struct Wizard {
 private:
 	std::string const name;

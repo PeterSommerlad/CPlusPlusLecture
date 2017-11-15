@@ -8,20 +8,20 @@ extern "C" {
 
 typedef struct Wizard *wizard;
 typedef struct Wizard const *cwizard;
-typedef struct Error *error_t;
+typedef struct Error *error_type;
 
 WIZARD_EXPORT_DLL
-char const *error_message(error_t error);
+char const *error_message(error_type error);
 WIZARD_EXPORT_DLL
-void error_dispose(error_t error);
+void error_dispose(error_type error);
 
 WIZARD_EXPORT_DLL
-wizard createWizard(char const *name, error_t *out_error);
+wizard createWizard(char const *name, error_type *out_error);
 WIZARD_EXPORT_DLL
 void disposeWizard(wizard toDispose);
 
 WIZARD_EXPORT_DLL
-char const *doMagic(wizard w, char const *wish, error_t *out_error);
+char const *doMagic(wizard w, char const *wish, error_type *out_error);
 WIZARD_EXPORT_DLL
 void learnSpell(wizard w, char const *spell);
 WIZARD_EXPORT_DLL

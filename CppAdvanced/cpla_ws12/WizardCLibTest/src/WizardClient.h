@@ -5,9 +5,9 @@
 #include <string>
 namespace wizard_client {
 struct ErrorRAII{
-	ErrorRAII(error_t error):opaque{error}{}
+	ErrorRAII(error_type error):opaque{error}{}
 	~ErrorRAII(){ if (opaque) error_dispose(opaque);}
-	error_t opaque;
+	error_type opaque;
 };
 
 struct ThrowOnError{
@@ -17,7 +17,7 @@ struct ThrowOnError{
 			throw std::runtime_error{error_message(error.opaque)};
 		}
 	}
-	operator error_t*(){return &error.opaque;}
+	operator error_type*(){return &error.opaque;}
 private:
 	ErrorRAII error{nullptr};
 };

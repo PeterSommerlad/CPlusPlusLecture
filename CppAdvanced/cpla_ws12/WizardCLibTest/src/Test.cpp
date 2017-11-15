@@ -44,8 +44,12 @@ void runAllTests(int argc, char const *argv[]){
 	cute::xml_listener<cute::ide_listener<> >  lis(xmlfile.out);
 	cute::makeRunner(lis,argc,argv)(s, "AllTests");
 }
+#include "src/WizardHidden.h"
+
 int main(int argc, char const *argv[]){
     runAllTests(argc,argv);
+    unseen::Wizard w{"Khadgar"};
+    w.learnSpell("Teleport: Dalaran");
     return 0;
 }
 

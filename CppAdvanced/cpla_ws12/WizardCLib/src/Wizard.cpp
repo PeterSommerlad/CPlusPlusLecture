@@ -10,20 +10,20 @@ struct Error {
 };
 
 WIZARD_EXPORT_DLL
-const char* error_message(error_t error)
+const char* error_message(error_type error)
 {
     return error->message.c_str();
 }
 
 WIZARD_EXPORT_DLL
-void error_dispose(error_t error)
+void error_dispose(error_type error)
 {
     delete error;
 }
 }
 
 template<typename Fn>
-bool translateExceptions(error_t* out_error, Fn&& fn)
+bool translateExceptions(error_type* out_error, Fn&& fn)
 {
     try {
         fn();
@@ -46,7 +46,7 @@ struct Wizard { // C linkage trampolin
 
 
 WIZARD_EXPORT_DLL
-wizard createWizard(const char* name, error_t *out_error) {
+wizard createWizard(const char* name, error_type *out_error) {
 	wizard result=nullptr;
 	translateExceptions(out_error,[&]{
 		result = new Wizard{name};
@@ -60,7 +60,7 @@ void disposeWizard(wizard const toDispose) {
 }
 
 WIZARD_EXPORT_DLL
-char const* doMagic(wizard w, char const * const wish, error_t *out_error) {
+char const* doMagic(wizard w, char const * const wish, error_type *out_error) {
 	// will return static string!
 	char const *result="";
 	translateExceptions(out_error,[&]{
