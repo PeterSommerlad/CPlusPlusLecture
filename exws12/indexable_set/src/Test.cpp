@@ -159,6 +159,16 @@ void test_elements_in_iterator_range_with_custom_comparator() {
 			std::begin(expected), std::end(expected), std::begin(champions), std::end(champions));
 }
 
+void test_elements_returned_by_index_and_at_are_returned_by_lvalue_reference() {
+	indexableSet<int> const values{42};
+	ASSERT_EQUAL(&values.at(0), &values[0]);
+}
+
+void test_elements_returned_by_front_and_back_are_returned_by_lvalue_reference() {
+	indexableSet<int> const values{42};
+	ASSERT_EQUAL(&values.front(), &values.back());
+}
+
 bool runAllTests(int argc, char const *argv[]) {
 	cute::suite constructor_tests { };
 	constructor_tests.push_back(CUTE(test_default_constructed_indexable_set_is_empty));
@@ -180,6 +190,8 @@ bool runAllTests(int argc, char const *argv[]) {
 	constructor_tests.push_back(CUTE(test_back_on_empty_throws));
 	constructor_tests.push_back(CUTE(test_back_on_non_empty_gets_last));
 	constructor_tests.push_back(CUTE(test_elements_in_iterator_range_with_custom_comparator));
+	constructor_tests.push_back(CUTE(test_elements_returned_by_index_and_at_are_returned_by_lvalue_reference));
+	constructor_tests.push_back(CUTE(test_elements_returned_by_front_and_back_are_returned_by_lvalue_reference));
 	cute::xml_file_opener xmlfile(argc, argv);
 	cute::xml_listener<cute::ide_listener<>> lis(xmlfile.out);
 	auto const runner { cute::makeRunner(lis, argc, argv) };
