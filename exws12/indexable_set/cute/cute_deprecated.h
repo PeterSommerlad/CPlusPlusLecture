@@ -14,28 +14,28 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with CUTE.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2007-2013 Peter Sommerlad
+ * Copyright 2016 Mario Meili, Felix Morgner
  *
  *********************************************************************************/
 
-#ifndef CUTE_DETERMINE_VERSION_H_
-#define CUTE_DETERMINE_VERSION_H_
-
-#if __cplusplus >= 201103L  && ! defined (USE_STD11)
-#define USE_STD11 1
-#endif
-
-#if defined(__GNUG__) && defined(__GXX_EXPERIMENTAL_CXX0X__) && ! defined(USE_TR1) && ! defined(USE_STD11)
-#define USE_STD11 1
-#endif
-
-#ifdef _MSC_VER
-#if (_MSC_VER >= 1400)
-#define USE_STD11 1
-#endif
-#endif
+#ifndef CUTE_DEPRECATED_H_
+#define CUTE_DEPRECATED_H_
 
 #if __cplusplus >= 201402L
-#define USE_STD14
+#define DEPRECATE(orig, repl) [[deprecated ("Use "#repl" instead.")]] inline void orig() {}
+#elif defined(__GNUG__)
+#define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
+#if GCC_VERSION >= 40500 || defined(__clang__)
+#define DEPRECATE(orig, repl) __attribute__((deprecated("Use "#repl" instead."))) inline void orig() {}
+#else
+#define DEPRECATE(orig, repl) __attribute__((deprecated)) inline void orig() {}
 #endif
-#endif /*CUTE_DETERMINE_VERSION_H_*/
+#elif defined(_MSC_VER)
+#define DEPRECATE(orig, repl) __declspec(deprecated(#orig" is deprecated, use "#repl" instead.")) inline void orig() {}
+#endif
+
+#ifdef DEPRECATE
+#define DEPRECATED(name) name()
+#endif
+
+#endif /*CUTE_DEPRECATED_H_*/

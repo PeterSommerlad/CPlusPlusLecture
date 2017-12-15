@@ -155,7 +155,7 @@ void test_back_on_non_empty_gets_last() {
 void test_elements_in_iterator_range_with_custom_comparator() {
 	indexableSet<std::string, std::greater<>> champions { "Yankees", "Giants", "Cardinals", "Sox", "Royals", "Cubs" };
 	std::vector<std::string> expected { "Yankees", "Sox", "Royals", "Giants", "Cubs", "Cardinals" };
-	ASSERT_EQUAL_RANGES_M("An indexableSet with supplied std::greater compare functor is expected to contain the elements in descending order.",
+	ASSERT_EQUAL_RANGESM("An indexableSet with supplied std::greater compare functor is expected to contain the elements in descending order.",
 			std::begin(expected), std::end(expected), std::begin(champions), std::end(champions));
 }
 

@@ -30,7 +30,7 @@
 #endif
 namespace cute {
 	template <typename Listener=null_listener>
-	struct ide_listener: public Listener
+	struct ide_listener: Listener
 	{
 		ide_listener(std::ostream &os=std::cout):out(os) {}
 		void begin(suite const &t,char const *info, size_t n_of_tests){

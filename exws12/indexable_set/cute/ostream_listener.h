@@ -30,24 +30,24 @@ namespace cute {
 		std::ostream &out;
 	public:
 		ostream_listener(std::ostream &os=std::cerr):out(os) {}
-		void begin(suite const &t,char const *info, size_t n_of_tests=t.size()){
-			out << "beginning: " << info<<std::endl;
+		void begin(suite const &t,char const *info, size_t n_of_tests){
+			out << "beginning: " << info << std::endl;
 			Listener::begin(t,info, n_of_tests);
 		}
 		void end(suite const &t, char const *info){
-			out << "ending: " << info<<std::endl;
+			out << "ending: " << info << std::endl;
 			Listener::end(t,info);
 		}
 		void start(test const &t){
-			out << "starting: " <<t.name()<< std::endl;
+			out << "starting: " << t.name() << std::endl;
 			Listener::start(t);
 		}
 		void success(test const &t, char const *msg){
-			out <<  t.name() <<" " << msg<< std::endl;
+			out << t.name() << " " << msg << std::endl;
 			Listener::success(t,msg);
 		}
 		void failure(test const &t,test_failure const &e){
-			out << std::dec << e.filename << ":" << e.lineno << ": testcase failed: " <<e.reason << " in " << t.name()<< std::endl;
+			out << std::dec << e.filename << ":" << e.lineno << ": testcase failed: " << e.reason << " in " << t.name() << std::endl;
 			Listener::failure(t,e);
 		}
 		void error(test const &t, char const *what){
