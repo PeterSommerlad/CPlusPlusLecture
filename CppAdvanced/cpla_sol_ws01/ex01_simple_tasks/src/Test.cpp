@@ -92,7 +92,6 @@ void testIncrementEndIteratorThrows() {
 void testIncrementWithCustomLimitThrows() {
 	double d{9.5};
 	ASSERT_THROWS(increment(d, 9.0), std::overflow_error);
-
 }
 
 //void testIncrementWithCustomLimitIncrementsSublimit() {
