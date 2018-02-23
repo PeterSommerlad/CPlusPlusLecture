@@ -1,6 +1,7 @@
 #ifndef FRACTION_H_
 #define FRACTION_H_
-
+#include <ostream>
+#include <istream>
 #include <boost/operators.hpp>
 
 struct Fraction : 	boost::equality_comparable<Fraction>,
@@ -12,7 +13,7 @@ struct Fraction : 	boost::equality_comparable<Fraction>,
 					boost::incrementable<Fraction>,
 					boost::decrementable<Fraction> {
 
-	Fraction(int const num = 0, int const denom = 1) :
+	explicit Fraction(int const num = 0, int const denom = 1) :
 			num { num }, denom { denom } {
 		reduce();
 	}
@@ -122,7 +123,7 @@ std::istream & operator>>(std::istream & is, Fraction & f) {
 	int denominator { };
 	is >> numerator >> div_operator >> denominator;
 	if (div_operator == '/') {
-		f = {numerator, denominator};
+		f = Fraction{numerator, denominator};
 	} else {
 		is.setstate(std::ios_base::failbit);
 	}
