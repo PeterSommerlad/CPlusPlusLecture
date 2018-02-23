@@ -15,9 +15,12 @@ int main() {
 	unsigned unsignedValue = 99u;
 	auto unsignedIntSum = unsignedValue + intValue1;
 
-	int negativeInt = -50;
+	int index = 0;
+	unsigned int size=0;
 
-	if (intValue1 < -unsignedIntSum) {
-		std::cout << "intValue1 < -unsignedIntSum";
+	if (index <= size-1) { // correct: index < size
+		std::cout << "Error in exams, somwhere there is a non-solution copied from";
+	} else {
+		std::cout << "should be out of bounds";
 	}
 }
