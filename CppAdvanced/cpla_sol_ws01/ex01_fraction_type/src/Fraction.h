@@ -2,6 +2,7 @@
 #define FRACTION_H_
 #include <ostream>
 #include <istream>
+#include <numeric>
 #include <boost/operators.hpp>
 
 struct Fraction : 	boost::equality_comparable<Fraction>,
@@ -88,7 +89,7 @@ private:
 			denom = 1;
 			return;
 		}
-		int const gcd = Fraction::gcd(std::abs(num), std::abs(denom));
+		int const gcd = std::lcm(std::abs(num), std::abs(denom));
 		num /= gcd;
 		denom /= gcd;
 		if (denom < 0) {
@@ -97,16 +98,6 @@ private:
 		}
 	}
 
-	static int gcd(int const a, int const b) {
-		if (a == b) {
-			return a;
-		}
-		if (a > b) {
-			return gcd(a - b, b);
-		} else {
-			return gcd(a, b - a);
-		}
-	}
 	int num;
 	int denom;
 };
