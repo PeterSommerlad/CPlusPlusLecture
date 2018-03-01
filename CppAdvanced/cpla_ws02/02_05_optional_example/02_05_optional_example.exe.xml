@@ -1,0 +1,6 @@
+<testsuites>
+	<testsuite name="AllTests" tests="2">
+		<testcase classname="AllTests" name="testNonExistingFile"/>
+		<testcase classname="AllTests" name="testExistingFile"/>
+	</testsuite>
+</testsuites>
