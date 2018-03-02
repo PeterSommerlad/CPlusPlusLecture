@@ -127,17 +127,20 @@ dynArray(Iter b, Iter e) -> dynArray<typename std::iterator_traits<Iter>::value_
 
 
 //Sol CPlA Ex02 (optional extension): The following allows deduction of template argument std::string from "char const *"
-template<typename T>
-struct convert_char_const_p_to_string {
-	using type = T;
-};
+//template<typename T>
+//struct convert_char_const_p_to_string {
+//	using type = T;
+//};
+//
+//template<>
+//struct convert_char_const_p_to_string<char const *> {
+//	using type = std::string;
+//};
+//
+//template<typename T>
+//dynArray(std::initializer_list<T>) -> dynArray<typename convert_char_const_p_to_string<T>::type>;
 
-template<>
-struct convert_char_const_p_to_string<char const *> {
-	using type = std::string;
-};
-
-template<typename T>
-dynArray(std::initializer_list<T>) -> dynArray<typename convert_char_const_p_to_string<T>::type>;
+//Sol CPlA Ex02 (optional extension): Same as implementation above, but much much simpler!
+dynArray(std::initializer_list<char const *>) -> dynArray<std::string>;
 
 #endif /* DYNARRAY_H_ */
