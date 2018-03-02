@@ -1,0 +1,9 @@
+<testsuites>
+	<testsuite name="AllTests" tests="5">
+		<testcase classname="AllTests" name="test_readln_multiple_mixed_inputs"/>
+		<testcase classname="AllTests" name="test_readln_empty_input"/>
+		<testcase classname="AllTests" name="test_readln_failed_on_wrong_format"/>
+		<testcase classname="AllTests" name="test_readln_successful__without_line_end"/>
+		<testcase classname="AllTests" name="test_readln_non_string_at_end"/>
+	</testsuite>
+</testsuites>
