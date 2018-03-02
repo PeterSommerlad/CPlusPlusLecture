@@ -9,10 +9,8 @@ namespace fs = std::experimental::filesystem;
 unsigned directory_size(fs::path directory_path) {
 	unsigned size { };
 
-	for (auto const p : fs::directory_iterator(directory_path)) {
-		if (is_directory(p)) {
-			size += directory_size(p);
-		} else {
+	for (auto const p : fs::recursive_directory_iterator(directory_path)) {
+		if (!is_directory(p)) {
 			try {
 				size += fs::file_size(p);
 			} catch (...) {
