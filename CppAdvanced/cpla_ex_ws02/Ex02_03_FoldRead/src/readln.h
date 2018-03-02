@@ -7,13 +7,17 @@
 
 namespace readln_impl {
 
+void doread(std::istream &) {
+	return;
+}
+
 template<typename ...I>
 void doread(std::istream &in, I&...vars);
 
 template<typename FIRST, typename ...I>
 void doread(std::istream &in, FIRST &var, I&...vars) {
 	in >> var;
-	if (sizeof...(I)) doread(in,vars...);
+	doread(in,vars...);
 }
 
 }
