@@ -10,5 +10,5 @@ struct S {
 
 int main(int argc, char **argv) {
 	using namespace std::string_literals;
-	S { } = "new value"s;
+	S{} = "new value"s;
 }

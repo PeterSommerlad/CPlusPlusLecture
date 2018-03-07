@@ -16,7 +16,7 @@ struct S {
 };
 
 
-int main(int argc, char **argv) {
+int main() {
 	std::cout << "\t --- S s{} ---\n";
 	S s{};
 

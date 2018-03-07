@@ -14,9 +14,10 @@ struct S {
 };
 
 
-int main(int argc, char **argv) {
+int main() {
 	try {
-		throw S{};
+		S s{};
+		throw s;
 	} catch (S s) {
 
 	}

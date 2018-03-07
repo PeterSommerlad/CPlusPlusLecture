@@ -3,32 +3,43 @@
 
 struct S {
 	S() {
-		std::cout << "creating S\n";
+		std::cout << "Constructor S()\n";
 	}
 
 //	S(S const &) = delete;
 
+
+//	S(S const &) = delete;
+//	S(S &&) = delete;
 	S(S const &) {
-		std::cout << "copying S\n";
+		std::cout << "Constructor S(S const &)\n";
+	}
+
+	S(S &&) {
+		std::cout << "Constructor S(S &&)\n";
+	}
+
+	S & operator =(S const &) {
+		std::cout << "operator =(S const &)\n";
+		return *this;
+	}
+
+	S & operator =(S &&) {
+		std::cout << "operator =(S &&)\n";
+		return *this;
 	}
 };
 
-S boiler(S s) {
+S create() {
+	S s{};
+	std::cout << "\t --- create() ---\n";
 	return s;
 }
 
-S create() {
-	return S{};
-}
-
-int main(int argc, char **argv) {
-	std::cout << "\t --- S copy{S{}} ---\n";
-	S copy{S{}};
-
-	std::cout << "\t --- S hot_s{create()} ---\n";
-	S new_sw{create()};
-
-	std::cout << "\t --- S hot_s{boiler(S{})} ---\n";
-	S hot_s{boiler(S{})};
+int main() {
+	std::cout << "\t --- S s{create()} ---\n";
+	S s{create()};
+	std::cout << "\t --- s = create() ---\n";
+	s = create();
 }
 
