@@ -8,7 +8,7 @@ struct S {
 
 //	S(S const &) = delete;
 
-	S(S const &) {
+	S(S const &) noexcept {
 		std::cout << "copying S\n";
 	}
 };
@@ -19,7 +19,6 @@ int main() {
 		S s{};
 		throw s;
 	} catch (S s) {
-
 	}
 }
 
