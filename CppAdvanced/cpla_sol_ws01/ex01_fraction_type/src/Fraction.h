@@ -89,7 +89,7 @@ private:
 			denom = 1;
 			return;
 		}
-		int const gcd = std::lcm(std::abs(num), std::abs(denom));
+		int const gcd = std::gcd(std::abs(num), std::abs(denom));
 		num /= gcd;
 		denom /= gcd;
 		if (denom < 0) {
