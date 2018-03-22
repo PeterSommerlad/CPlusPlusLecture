@@ -1,5 +1,6 @@
 #include <iostream>
 #include <boost/type_index.hpp>
+#include <utility>
 
 struct S {
 	S() = default;
