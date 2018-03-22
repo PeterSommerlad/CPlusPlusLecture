@@ -4,10 +4,10 @@
 struct S {
 	S() = default;
 	S(S const &) {
-		std::cout << "S(S const &)\n";
+		std::cout << "S(S const &) -> copy\n";
 	}
 	S(S&&) {
-		std::cout << "S(S &&)\n";
+		std::cout << "S(S &&) -> move\n";
 	}
 };
 

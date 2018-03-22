@@ -4,10 +4,10 @@
 struct S {
 	S() = default;
 	S(S const &) {
-		std::cout << "S(S const &)\n";
+		std::cout << "S(S const &) -> copy\n";
 	}
 	S(S&&) {
-		std::cout << "S(S &&)\n";
+		std::cout << "S(S &&) -> move\n";
 	}
 };
 
@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
 	log_and_do(sc); //lvalue
 
 	std::cout << "--- calling log_and_do(S{})\n";
-	log_and_do(S{}); //rvalue - does not compile
+	log_and_do(S{}); //rvalue
 
 	std::cout << "--- end\n";
 }
