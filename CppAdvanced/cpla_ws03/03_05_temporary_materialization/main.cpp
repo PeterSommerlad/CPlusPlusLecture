@@ -7,13 +7,13 @@ struct Ghost {
 	//~Ghost() = delete;
 };
 
-Ghost evocate() {
+Ghost evoke() {
 	return Ghost{};
 }
 
 
 int main() {
-	Ghost && sam = evocate();
+	Ghost && sam = evoke();
 
 	Ghost{}.haunt();
 }
