@@ -5,7 +5,7 @@
 			<provider copy-of="extension" id="org.eclipse.cdt.ui.UserLanguageSettingsProvider"/>
 			<provider-reference id="org.eclipse.cdt.core.ReferencedProjectsLanguageSettingsProvider" ref="shared-provider"/>
 			<provider-reference id="org.eclipse.cdt.managedbuilder.core.MBSLanguageSettingsProvider" ref="shared-provider"/>
-			<provider class="org.eclipse.cdt.managedbuilder.internal.language.settings.providers.GCCBuiltinSpecsDetectorCygwin" console="false" env-hash="-995656606345214063" id="org.eclipse.cdt.managedbuilder.core.GCCBuiltinSpecsDetectorCygwin" keep-relative-paths="false" name="CDT GCC Built-in Compiler Settings Cygwin" parameter="${COMMAND} ${FLAGS} -E -P -v -dD &quot;${INPUTS}&quot; -std=c++1z" prefer-non-shared="true" store-entries-with-project="true">
+			<provider class="org.eclipse.cdt.managedbuilder.internal.language.settings.providers.GCCBuiltinSpecsDetectorCygwin" console="false" env-hash="-891328019258173213" id="org.eclipse.cdt.managedbuilder.core.GCCBuiltinSpecsDetectorCygwin" keep-relative-paths="false" name="CDT GCC Built-in Compiler Settings Cygwin" parameter="${COMMAND} ${FLAGS} -E -P -v -dD &quot;${INPUTS}&quot; -std=c++1z" prefer-non-shared="true" store-entries-with-project="true">
 				<language-scope id="org.eclipse.cdt.core.gcc"/>
 				<language-scope id="org.eclipse.cdt.core.g++"/>
 				<language id="org.eclipse.cdt.core.gcc">
@@ -234,9 +234,6 @@
 					<entry kind="macro" name="__FLT128_MIN_EXP__" value="(-16381)">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="macro" name="__FLT128_MIN__" value="long long int">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
 					<entry kind="macro" name="__FLT128_MIN__" value="3.36210314311209350626267781732175260e-4932F128">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
@@ -355,9 +352,6 @@
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__FLT64X_MAX__" value="1.18973149535723176502126385303097021e+4932F64x">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
-					<entry kind="macro" name="__FLT64X_MIN_10_EXP__" value="64">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__FLT64X_MIN_10_EXP__" value="(-4931)">
@@ -486,9 +480,6 @@
 					<entry kind="macro" name="__GCC_ATOMIC_LONG_LOCK_FREE" value="2">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="macro" name="__GCC_ATOMIC_POINTER_LOCK_FREE" value="0xffffffffU">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
 					<entry kind="macro" name="__GCC_ATOMIC_POINTER_LOCK_FREE" value="2">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
@@ -517,6 +508,9 @@
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__GCC_IEC_559" value="2">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
+					<entry kind="macro" name="__GCC_IEC_559_COMPLEX" value="2">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__GNUC_MINOR__" value="2">
@@ -588,6 +582,9 @@
 					<entry kind="macro" name="__INTMAX_WIDTH__" value="64">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
+					<entry kind="macro" name="__INTPTR_MAX__" value="0x7fffffff">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
 					<entry kind="macro" name="__INTPTR_TYPE__" value="int">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
@@ -613,6 +610,9 @@
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__INT_FAST64_MAX__" value="0x7fffffffffffffffLL">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
+					<entry kind="macro" name="__INT_FAST64_TYPE__" value="long long int">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__INT_FAST64_WIDTH__" value="64">
@@ -714,6 +714,9 @@
 					<entry kind="macro" name="__LONG_LONG_MAX__" value="0x7fffffffffffffffLL">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
+					<entry kind="macro" name="__LONG_LONG_WIDTH__" value="64">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
 					<entry kind="macro" name="__LONG_MAX__" value="0x7fffffffL">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
@@ -736,9 +739,6 @@
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__ORDER_PDP_ENDIAN__" value="3412">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
-					<entry kind="macro" name="__PRAGMA_REDEFINE_EXTNAME" value="0x7fffffff">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__PRAGMA_REDEFINE_EXTNAME" value="1">
@@ -909,6 +909,9 @@
 					<entry kind="macro" name="__UINT_FAST16_TYPE__" value="short unsigned int">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
+					<entry kind="macro" name="__UINT_FAST32_MAX__" value="0xffffffffU">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
 					<entry kind="macro" name="__UINT_FAST32_TYPE__" value="unsigned int">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
@@ -1006,9 +1009,6 @@
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__has_include_next(STR)" value="__has_include_next__(STR)">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
-					<entry kind="macro" name="__i386" value="2">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__i386" value="1">
@@ -2261,7 +2261,7 @@
 			<provider copy-of="extension" id="org.eclipse.cdt.ui.UserLanguageSettingsProvider"/>
 			<provider-reference id="org.eclipse.cdt.core.ReferencedProjectsLanguageSettingsProvider" ref="shared-provider"/>
 			<provider-reference id="org.eclipse.cdt.managedbuilder.core.MBSLanguageSettingsProvider" ref="shared-provider"/>
-			<provider class="org.eclipse.cdt.managedbuilder.internal.language.settings.providers.GCCBuiltinSpecsDetectorCygwin" console="false" env-hash="-1813919772439055465" id="org.eclipse.cdt.managedbuilder.core.GCCBuiltinSpecsDetectorCygwin" keep-relative-paths="false" name="CDT GCC Built-in Compiler Settings Cygwin" parameter="${COMMAND} ${FLAGS} -E -P -v -dD &quot;${INPUTS}&quot; -std=c++1z" prefer-non-shared="true" store-entries-with-project="true">
+			<provider class="org.eclipse.cdt.managedbuilder.internal.language.settings.providers.GCCBuiltinSpecsDetectorCygwin" console="false" env-hash="434709837926102633" id="org.eclipse.cdt.managedbuilder.core.GCCBuiltinSpecsDetectorCygwin" keep-relative-paths="false" name="CDT GCC Built-in Compiler Settings Cygwin" parameter="${COMMAND} ${FLAGS} -E -P -v -dD &quot;${INPUTS}&quot; -std=c++1z" prefer-non-shared="true" store-entries-with-project="true">
 				<language-scope id="org.eclipse.cdt.core.gcc"/>
 				<language-scope id="org.eclipse.cdt.core.g++"/>
 				<language id="org.eclipse.cdt.core.gcc">
@@ -3743,6 +3743,9 @@
 					<entry kind="macro" name="__FLT_MANT_DIG__" value="24">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
+					<entry kind="macro" name="__FLT_MAX_10_EXP__" value="38">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
 					<entry kind="macro" name="__FLT_MAX_EXP__" value="128">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
@@ -4107,9 +4110,6 @@
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__SIZEOF_FLOAT128__" value="16">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
-					<entry kind="macro" name="__SIZEOF_FLOAT80__" value="38">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__SIZEOF_FLOAT80__" value="12">
