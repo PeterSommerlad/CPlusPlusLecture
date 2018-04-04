@@ -1,0 +1,14 @@
+<testsuites>
+	<testsuite name="AllTests" tests="10">
+		<testcase classname="AllTests" name="thisIsATest"/>
+		<testcase classname="AllTests" name="testWithValue"/>
+		<testcase classname="AllTests" name="testWithReassign"/>
+		<testcase classname="AllTests" name="testMoveCtor"/>
+		<testcase classname="AllTests" name="testDtor"/>
+		<testcase classname="AllTests" name="testLvalueArgumentForAssignment"/>
+		<testcase classname="AllTests" name="testLvalueArgumentForCtor"/>
+		<testcase classname="AllTests" name="testWithWrongGet"/>
+		<testcase classname="AllTests" name="testWithCopyCtor"/>
+		<testcase classname="AllTests" name="testWithCopyAssign"/>
+	</testsuite>
+</testsuites>
