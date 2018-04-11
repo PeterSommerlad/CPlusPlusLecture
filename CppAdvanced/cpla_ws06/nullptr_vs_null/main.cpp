@@ -13,6 +13,6 @@ void bar(S * ps) {
 
 int main(int argc, char **argv) {
 	bar(0);
-//	bar(NULL);    //ambiguous
+	bar(NULL);    //surprising
 	bar(nullptr);
 }
