@@ -15,7 +15,7 @@ struct line_iterator {
 	explicit line_iterator(std::istream * const in) : in{in}{}
 
 	bool operator==(line_iterator const & other) const {
-		return is_eof() && other.is_eof();
+		return is_not_good() && other.is_not_good();
 	}
 
 	bool operator!=(line_iterator const & other) const {
@@ -41,8 +41,8 @@ private:
 	std::istream * in{nullptr};
 	value_type current_line{};
 
-	bool is_eof() const {
-		return in == nullptr || (in->peek(), in->eof());
+	bool is_not_good() const {
+		return in == nullptr || (in->peek(), !in->good());
 	}
 };
 
