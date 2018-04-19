@@ -12,7 +12,8 @@ struct line_iterator {
 	using reference = value_type &;
 
 	line_iterator() = default;
-	explicit line_iterator(std::istream * const in) : in{in}{}
+	explicit line_iterator(std::istream& in) : in { &in } {
+	}
 
 	bool operator==(line_iterator const & other) const {
 		return is_not_good() && other.is_not_good();
@@ -29,7 +30,7 @@ struct line_iterator {
 
 	line_iterator operator++(int) {
 		auto copy = *this;
-		std::getline(*in, current_line);
+		++*this;
 		return copy;
 	}
 
@@ -48,7 +49,7 @@ private:
 
 
 int main(){
-	line_iterator input_iter{&std::cin};
+	line_iterator input_iter{std::cin};
 	line_iterator eof{};
 	std::cout << std::distance(input_iter, eof);
 }
