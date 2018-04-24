@@ -1,0 +1,114 @@
+<testsuites>
+	<testsuite name="BoundedBuffer Signature Tests" tests="17">
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_value_type_is_value"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_reference_type_is_reference"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_container_type_is_array"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_const_reference_type_is_const_reference"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_size_type_is_size_t"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_const_bounded_buffer_type_of_empty_is_bool"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_const_bounded_buffer_type_of_full_is_bool"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_front_type_is_reference_type"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_back_type_is_reference_type"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_const_bounded_buffer_back_type_is_reference_type"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_pop_type_is_reference_type"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_const_bounded_buffer_front_type_is_const_reference_type"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_const_bounded_buffer_type_of_size_is_size_t"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_type_of_push_of_const_lvalue_is_void"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_type_of_push_of_rvalue_is_void"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_type_of_pop_is_void"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_type_of_swap_is_void"/>
+	</testsuite>
+	<testsuite name="BoundedBuffer Default Behavior Tests" tests="13">
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_int_buffer_of_capacity_thousand_is_empty"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_buffer_constructor_for_capacity_zero_throws"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_const_int_buffer_of_capacity_thousand_is_not_full"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_default_constructed_const_int_buffer_of_size_zero_is_full"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_int_buffer_of_capacity_thousand_has_size_zero"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_default_constructed_const_int_buffer_of_size_zero_has_size_zero"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_empty_bounded_buffer_throws_on_front"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_empty_const_bounded_buffer_throws_on_front"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_empty_bounded_buffer_throws_on_back"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_empty_const_bounded_buffer_throws_on_back"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_empty_bounded_buffer_throws_on_pop"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_full_bounded_buffer_throws_on_push_const_lvalue"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_full_bounded_buffer_throws_on_push_rvalue"/>
+	</testsuite>
+	<testsuite name="BoundedBuffer Content Tests" tests="23">
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_is_not_empty_after_push_rvalue"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_is_not_empty_after_push_lvalue"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_is_empty_after_one_push_and_pop"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_of_size_two_is_full_after_two_pushs"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_size_is_one_after_push"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_size_is_fifty_after_fifty_pushs"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_front_gets_element_of_push"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_back_gets_element_of_push"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_front_gets_first_element_of_pushs"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_back_gets_last_element_of_two_pushs"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_front_throws_after_push_pop"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_back_throws_after_push_pop"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_const_buffer_front_gets_element_of_push"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_const_buffer_back_gets_element_of_push"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_const_buffer_front_gets_first_element_of_pushs"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_const_buffer_back_gets_last_element_of_two_pushs"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_const_buffer_front_throws_after_push_pop"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_const_buffer_back_throws_after_push_pop"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_fronts_in_sequence_of_push_pop"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_wrap_around_behavior_front"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_wrap_around_behavior_back"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_after_swap_this_has_argument_content"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_after_swap_argument_has_this_content"/>
+	</testsuite>
+	<testsuite name="BoundedBuffer Content Tests" tests="23">
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_buffer_is_not_empty_after_push_rvalue"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_buffer_is_not_empty_after_push_lvalue"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_buffer_is_empty_after_one_push_and_pop"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_buffer_of_size_two_is_full_after_two_pushs"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_buffer_size_is_one_after_push"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_buffer_size_is_fifty_after_fifty_pushs"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_buffer_front_gets_element_of_push"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_buffer_back_gets_element_of_push"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_buffer_front_gets_first_element_of_pushs"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_buffer_back_gets_last_element_of_two_pushs"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_buffer_front_throws_after_push_pop"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_buffer_back_throws_after_push_pop"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_const_buffer_front_gets_element_of_push"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_const_buffer_back_gets_element_of_push"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_const_buffer_front_gets_first_element_of_pushs"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_const_buffer_back_gets_last_element_of_two_pushs"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_const_buffer_front_throws_after_push_pop"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_const_buffer_back_throws_after_push_pop"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_buffer_fronts_in_sequence_of_push_pop"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_buffer_wrap_around_behavior_front"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_buffer_wrap_around_behavior_back"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_buffer_after_swap_this_has_argument_content"/>
+		<testcase classname="BoundedBuffer Content Tests" name="no_default_ctor::test_buffer_after_swap_argument_has_this_content"/>
+	</testsuite>
+	<testsuite name="BoundedBuffer Semantic Tests" tests="10">
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_buffer_push_moves_element"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_buffer_push_copies_element"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_element_in_buffer_is_copied_along_copy_constructor"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_element_in_buffer_is_copied_along_assignment_operator"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_element_in_buffer_is_moved_along_move_constructor"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_element_in_buffer_is_moved_along_assignment_operator"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_element_in_buffer_is_copied_along_assignment_operator_multiple_copies"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_element_in_buffer_is_moved_along_assignment_operator_multiple_moves"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_element_buffer_copy_is_returned_from_assignment"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_element_buffer_moved_is_returned_from_assignment"/>
+	</testsuite>
+	<testsuite name="BoundedBuffer Semantic Tests" tests="10">
+		<testcase classname="BoundedBuffer Semantic Tests" name="no_default_ctor::test_element_buffer_moved_is_returned_from_assignment"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="no_default_ctor::test_element_buffer_copy_is_returned_from_assignment"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="no_default_ctor::test_element_in_buffer_is_moved_along_assignment_operator_multiple_moves"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="no_default_ctor::test_element_in_buffer_is_copied_along_assignment_operator_multiple_copies"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="no_default_ctor::test_element_in_buffer_is_moved_along_assignment_operator"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="no_default_ctor::test_element_in_buffer_is_moved_along_move_constructor"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="no_default_ctor::test_element_in_buffer_is_copied_along_assignment_operator"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="no_default_ctor::test_moved_over_and_from_elements_are_destructed"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="no_default_ctor::test_buffer_push_moves_element"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="no_default_ctor::test_buffer_push_copies_element"/>
+	</testsuite>
+	<testsuite name="BoundedBuffer Student Tests" tests="2">
+		<testcase classname="BoundedBuffer Student Tests" name="BufferWithThrowsOnCopy"/>
+		<testcase classname="BoundedBuffer Student Tests" name="BufferWithThrowsOnCopyNonDefault"/>
+	</testsuite>
+</testsuites>

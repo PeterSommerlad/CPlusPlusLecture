@@ -1,0 +1,36 @@
+<testsuites>
+	<testsuite name="AllTests" tests="32">
+		<testcase classname="AllTests" name="thisIsATest"/>
+		<testcase classname="AllTests" name="testscopeExitWithNonAssignableResourceAndReset"/>
+		<testcase classname="AllTests" name="testCompilabilityGuardForPointerTypes"/>
+		<testcase classname="AllTests" name="testTalkToTheWorld"/>
+		<testcase classname="AllTests" name="demontrate_unique_resource_with_POSIX_IO"/>
+		<testcase classname="AllTests" name="demontrate_unique_resource_with_POSIX_IO_lvalue"/>
+		<testcase classname="AllTests" name="demonstrate_unique_resource_with_stdio"/>
+		<testcase classname="AllTests" name="demonstrate_unique_resource_with_stdio_Cpp17"/>
+		<testcase classname="AllTests" name="test_unique_resource_semantics_reset"/>
+		<testcase classname="AllTests" name="testUniqueResourceSimple"/>
+		<testcase classname="AllTests" name="testThrowOnUniqueResourceDoesntCrashIt"/>
+		<testcase classname="AllTests" name="testThrowDoesntCrashIt"/>
+		<testcase classname="AllTests" name="testDismissedGuard"/>
+		<testcase classname="AllTests" name="testUniqueResourceByReference"/>
+		<testcase classname="AllTests" name="test_scope_exit_with_throwing_fun_copy"/>
+		<testcase classname="AllTests" name="test_scope_success_with_side_effect"/>
+		<testcase classname="AllTests" name="demo_scope_exit_fail_success"/>
+		<testcase classname="AllTests" name="demo_scope_exit_fail_success_Cpp17"/>
+		<testcase classname="AllTests" name="test_scope_exit_lvalue_ref_passing_rvalue_fails_to_compile"/>
+		<testcase classname="AllTests" name="test_scope_success_might_throw"/>
+		<testcase classname="AllTests" name="test_make_unique_resource_checked"/>
+		<testcase classname="AllTests" name="test_make_unique_resource_checked_lvalue"/>
+		<testcase classname="AllTests" name="test_make_unique_resource_checked_failing_copy"/>
+		<testcase classname="AllTests" name="test_make_unique_resource_checked_with_deleter_throwing_on_copy"/>
+		<testcase classname="AllTests" name="testReferenceWrapper"/>
+		<testcase classname="AllTests" name="testScopeExitWithReferenceWrapper"/>
+		<testcase classname="AllTests" name="testsFromEricNiebler_scope_exit_with_throwing_function_object"/>
+		<testcase classname="AllTests" name="testsFromEricNiebler_scope_success_with_throwing_function_object"/>
+		<testcase classname="AllTests" name="testsFromEricNiebler_scope_fail_with_throwing_function_object"/>
+		<testcase classname="AllTests" name="testScopeExitWithCPP17DeducingCtors"/>
+		<testcase classname="AllTests" name="testScopeFailWithCPP17DeducingCtors"/>
+		<testcase classname="AllTests" name="testScopeSuccessWithCPP17DeducingCtors"/>
+	</testsuite>
+</testsuites>
