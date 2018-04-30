@@ -11,15 +11,15 @@ int main(){
 
 	std::thread prod1{[&]{
 		sleep_for(10ms);
-		for(int i=0; i < 10; ++i){
-			queue.push(i);
+		for(int j=0; j < 10; ++j){
+			queue.push(j);
 			yield();//sleep_for(1ms);
 		}
 	}};
 	std::thread prod2{[&]{
 		sleep_for(9ms);
 		for(int i=0; i < 10; ++i){
-			queue.push(i*10);
+			queue.push(i*11);
 			yield();//sleep_for(1ms);
 		}
 	}};
@@ -34,6 +34,11 @@ int main(){
 	queue.swap(q2);
 	assert(1==queue.pop());
 	assert(queue.empty());
+	std::cout << "non-processed elements:\n";
+	while(!q2.empty()){
+		std::cout << q2.pop()<<'\n';
+	}
+	assert(q2.empty());
 }
 
 
