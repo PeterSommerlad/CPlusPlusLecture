@@ -51,6 +51,12 @@
                             							
                             <tool command="g++" id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.exe.debug.987181289" name="MacOS X C++ Linker" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.exe.debug">
                                 								
+                                <option id="macosx.cpp.link.option.libs.649301012" superClass="macosx.cpp.link.option.libs" useByScannerDiscovery="false" valueType="libs">
+                                    									
+                                    <listOptionValue builtIn="false" value="atomic"/>
+                                    								
+                                </option>
+                                								
                                 <inputType id="cdt.managedbuild.tool.macosx.cpp.linker.input.1718893903" superClass="cdt.managedbuild.tool.macosx.cpp.linker.input">
                                     									
                                     <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>

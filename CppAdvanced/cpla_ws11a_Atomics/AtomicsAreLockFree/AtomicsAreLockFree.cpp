@@ -2,7 +2,7 @@
 #include <ios>
 #include <string>
 #include <iostream>
-
+// requires -latomic to link, if non-lock-free type used on gcc and clang
 template <typename ATOM>
 void printIsLockFree(std::ostream &out, std::string const &which
 		            , ATOM &atomic){
@@ -30,9 +30,5 @@ int main() {
 	PRINT(int64_t);
 	PRINT(X);
 	PRINT(Complex);
-	std::atomic<Complex> b;
-	printIsLockFree(std::cout, "Complex",b);
-//	std::atomic<Quaternion> a;
-//	printIsLockFree(std::cout, "Quaternion",a);
-//	PRINT(Quaternion);
+	PRINT(Quaternion);
 }
