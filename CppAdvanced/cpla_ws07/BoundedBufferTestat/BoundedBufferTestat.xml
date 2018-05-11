@@ -1,0 +1,155 @@
+<testsuites>
+	<testsuite name="BoundedBuffer Signature Tests" tests="16">
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_value_type_is_value"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_reference_type_is_reference"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_const_reference_type_is_const_reference"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_size_type_is_size_t"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_const_bounded_buffer_type_of_empty_is_bool"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_const_bounded_buffer_type_of_full_is_bool"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_front_type_is_reference_type"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_back_type_is_reference_type"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_const_bounded_buffer_back_type_is_reference_type"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_pop_type_is_reference_type"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_const_bounded_buffer_front_type_is_const_reference_type"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_const_bounded_buffer_type_of_size_is_size_t"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_type_of_push_of_const_lvalue_is_void"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_type_of_push_of_rvalue_is_void"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_type_of_pop_is_void"/>
+		<testcase classname="BoundedBuffer Signature Tests" name="test_bounded_buffer_type_of_swap_is_void"/>
+	</testsuite>
+	<testsuite name="BoundedBuffer Default Behavior Tests" tests="11">
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_int_buffer_of_capacity_thousand_is_empty"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_buffer_constructor_for_capacity_zero_throws"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_const_int_buffer_of_capacity_thousand_is_not_full"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_int_buffer_of_capacity_thousand_has_size_zero"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_empty_bounded_buffer_throws_on_front"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_empty_const_bounded_buffer_throws_on_front"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_empty_bounded_buffer_throws_on_back"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_empty_const_bounded_buffer_throws_on_back"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_empty_bounded_buffer_throws_on_pop"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_full_bounded_buffer_throws_on_push_const_lvalue"/>
+		<testcase classname="BoundedBuffer Default Behavior Tests" name="test_full_bounded_buffer_throws_on_push_rvalue"/>
+	</testsuite>
+	<testsuite name="BoundedBuffer Content Tests" tests="23">
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_is_not_empty_after_push_rvalue"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_is_not_empty_after_push_lvalue"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_is_empty_after_one_push_and_pop"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_of_size_two_is_full_after_two_pushs"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_size_is_one_after_push"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_size_is_fifty_after_fifty_pushs"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_front_gets_element_of_push"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_back_gets_element_of_push"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_front_gets_first_element_of_pushs"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_back_gets_last_element_of_two_pushs"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_front_throws_after_push_pop"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_back_throws_after_push_pop"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_const_buffer_front_gets_element_of_push"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_const_buffer_back_gets_element_of_push"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_const_buffer_front_gets_first_element_of_pushs"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_const_buffer_back_gets_last_element_of_two_pushs"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_const_buffer_front_throws_after_push_pop"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_const_buffer_back_throws_after_push_pop"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_fronts_in_sequence_of_push_pop"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_wrap_around_behavior_front"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_wrap_around_behavior_back"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_after_swap_this_has_argument_content"/>
+		<testcase classname="BoundedBuffer Content Tests" name="test_buffer_after_swap_argument_has_this_content"/>
+	</testsuite>
+	<testsuite name="BoundedBuffer Semantic Tests" tests="14">
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_buffer_push_moves_element"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_buffer_push_copies_element"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_element_in_buffer_is_copied_along_copy_constructor"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_element_in_buffer_is_copied_along_assignment_operator"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_element_in_buffer_is_moved_along_move_constructor"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_element_in_buffer_is_moved_along_assignment_operator"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_element_in_buffer_is_copied_along_assignment_operator_multiple_copies"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_element_in_buffer_is_moved_along_assignment_operator_multiple_moves"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_element_buffer_copy_is_returned_from_assignment"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_element_buffer_moved_is_returned_from_assignment"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_capacity_is_copied_in_ctor"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_capacity_is_copied_in_assignment"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_capacity_is_moved_in_ctor"/>
+		<testcase classname="BoundedBuffer Semantic Tests" name="test_capacity_is_moved_in_assignment"/>
+	</testsuite>
+	<testsuite name="BoundedBuffer Student Tests" tests="0">
+	</testsuite>
+	<testsuite name="BoundedBuffer Heap Memory Tests" tests="11">
+		<testcase classname="BoundedBuffer Heap Memory Tests" name="test_allocation_of_default_bounded_buffer"/>
+		<testcase classname="BoundedBuffer Heap Memory Tests" name="test_deallocation_of_default_bounded_buffer"/>
+		<testcase classname="BoundedBuffer Heap Memory Tests" name="test_no_undeleted_allocation_on_exception"/>
+		<testcase classname="BoundedBuffer Heap Memory Tests" name="test_copy_constructor_allocates_a_new_buffer"/>
+		<testcase classname="BoundedBuffer Heap Memory Tests" name="test_copy_self_assignment_no_additional_allocation"/>
+		<testcase classname="BoundedBuffer Heap Memory Tests" name="test_move_self_assignment_no_addtional_allocation"/>
+		<testcase classname="BoundedBuffer Heap Memory Tests" name="test_copy_only_initialized_elements_in_copy_construction"/>
+		<testcase classname="BoundedBuffer Heap Memory Tests" name="test_copy_only_initialized_elements_in_copy_assignment"/>
+		<testcase classname="BoundedBuffer Heap Memory Tests" name="test_move_constructor_does_not_allocate_a_new_buffer"/>
+		<testcase classname="BoundedBuffer Heap Memory Tests" name="test_copy_assignment_one_additional_allocation"/>
+		<testcase classname="BoundedBuffer Heap Memory Tests" name="test_move_assignment_no_additional_allocation"/>
+	</testsuite>
+	<testsuite name="BoundedBuffer Iterator Tests" tests="53">
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_begin_and_end_of_empty_buffer_are_equal"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_begin_and_end_of_non_empty_buffer_are_inequal"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_begin_and_end_of_full_buffer_are_inequal"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_two_begins_of_same_buffer_are_equal"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_two_ends_of_same_buffer_are_equal"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_two_begins_of_same_const_buffer_are_equal"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_two_ends_of_same_const_buffer_are_equal"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_two_cbegins_of_same_const_buffer_are_equal"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_two_cends_of_same_const_buffer_are_equal"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_begin_points_to_the_correct_element"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_prefix_incremented_begin_points_to_the_correct_element"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_twice_prefix_incremented_begin_points_to_the_correct_element"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_iterator_prefix_incremented_to_the_end_equals_end"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_iterator_incremented_wrap_around_leads_to_equal_end"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_prefix_incrementing_end_iterator_throws"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_postfix_incrementing_end_iterator_throws"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_accessing_element_at_end_throws"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_expression_of_prefix_incremented_begin_points_to_the_correct_element"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_postfix_incremented_begin_points_to_the_correct_element"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_expression_of_postfix_incremented_begin_points_to_the_correct_element"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_postfix_decrementing_on_empty_buffer_begin_throws"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_prefix_decrementing_on_empty_buffer_begin_throws"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_postfix_decremented_end_points_to_last_element"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_prefix_decremented_end_points_to_last_element"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_postfix_decrementing_on_non_empty_buffer_begin_throws"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_prefix_decrementing_on_non_empty_buffer_begin_throws"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_begin_end_ranges_of_the_same_buffer_are_equal"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_begin_end_ranges_of_buffers_with_the_same_elements_are_equal"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_difference_on_different_buffers_throws"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_difference_between_begin_and_end_on_empty_buffer"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_difference_between_begin_and_end_on_buffer_with_some_elements"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_difference_between_begin_and_end_on_full_buffer"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_difference_between_begin_and_end_on_buffer_with_some_elements_wrapped_around"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_difference_between_arbitrary_iterators_on_buffer_with_some_elements_wrapped_around"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_begin_end_ranges_of_buffers_with_the_same_elements_but_not_at_the_same_location_are_equal"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_plus_expression_for_iterator"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_plus_assign_expression_for_iterator"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_minus_expression_for_iterator"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_minus_assign_expression_for_iterator"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_plus_beyond_end_throws"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_plus_assign_beyond_end_throws"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_minus_beyond_begin_throws"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_minus_assign_beyond_begin_throws"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_begin_is_smaller_than_end_for_non_empty_buffers"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_begin_is_greater_than_end_for_non_empty_buffers"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_arbitrary_iterators_compare_less_than_for_non_empty_buffers"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_arbitrary_iterators_compare_greater_than_for_non_empty_buffers"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_relative_comparison_of_iterators_to_different_buffers_throws"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_non_const_begin_iterator_overwrites_element"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_non_const_end_iterator_overwrites_element"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_index_operator"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_index_end_minus_one_operator"/>
+		<testcase classname="BoundedBuffer Iterator Tests" name="test_arrow_operator"/>
+	</testsuite>
+	<testsuite name="BoundedBuffer Non Default Constructible Tests" tests="9">
+		<testcase classname="BoundedBuffer Non Default Constructible Tests" name="test_new_buffer_of_nondefaultconstructible_invokes_no_destructors"/>
+		<testcase classname="BoundedBuffer Non Default Constructible Tests" name="test_element_in_buffer_is_destroyed_once"/>
+		<testcase classname="BoundedBuffer Non Default Constructible Tests" name="test_element_in_moved_buffer_is_destroyed_once"/>
+		<testcase classname="BoundedBuffer Non Default Constructible Tests" name="test_every_element_in_copied_buffer_is_destroyed_once"/>
+		<testcase classname="BoundedBuffer Non Default Constructible Tests" name="test_pop_destroys_element"/>
+		<testcase classname="BoundedBuffer Non Default Constructible Tests" name="test_lvalue_push_copies_element"/>
+		<testcase classname="BoundedBuffer Non Default Constructible Tests" name="test_rvalue_push_moves_element"/>
+		<testcase classname="BoundedBuffer Non Default Constructible Tests" name="test_lvalue_push_must_not_copy_assign"/>
+		<testcase classname="BoundedBuffer Non Default Constructible Tests" name="test_rvalue_push_must_not_move_assign"/>
+	</testsuite>
+</testsuites>
