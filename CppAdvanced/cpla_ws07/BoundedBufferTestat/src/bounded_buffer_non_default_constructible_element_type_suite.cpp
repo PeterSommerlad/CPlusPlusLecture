@@ -46,7 +46,7 @@ struct NonDefaultConstructible {
 private:
 	void throwIfNotInitialized() const {
 		if (value != 1234) {
-			throw std::logic_error{"Operation on NDC with value: " + value};
+			throw std::logic_error{"Operation on NDC with value: " + std::to_string(value)};
 		}
 	}
 	volatile unsigned value;

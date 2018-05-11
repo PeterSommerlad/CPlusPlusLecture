@@ -366,7 +366,7 @@ void test_arbitrary_iterators_compare_greater_than_for_non_empty_buffers() {
 void test_relative_comparison_of_iterators_to_different_buffers_throws() {
 	BoundedBuffer<int> buffer{5}, buffer2{5};
 
-	ASSERT_THROWS(buffer.begin() < buffer2.begin(), std::logic_error);
+	ASSERT_THROWS(static_cast<void>(buffer.begin() < buffer2.begin()), std::logic_error);
 }
 
 void test_non_const_begin_iterator_overwrites_element() {

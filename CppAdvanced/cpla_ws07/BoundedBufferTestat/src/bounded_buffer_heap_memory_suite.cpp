@@ -129,7 +129,7 @@ void test_move_self_assignment_no_addtional_allocation() {
 	BoundedBuffer<AllocationTracker> buffer { 3 };
 	buffer.push(AllocationTracker{});
 	buffer.push(AllocationTracker{});
-	buffer = std::move(buffer);
+	buffer = std::move(buffer); // expect warning self-move here
 	ASSERT_EQUAL(0, AllocationTracker::allocatedArrays.size());
 }
 
