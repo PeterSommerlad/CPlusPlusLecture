@@ -1,21 +1,17 @@
 <testsuites>
-	<testsuite name="AllTests" tests="0">
-	</testsuite>
-	<testsuite name="BoundedQueueAPI" tests="0">
-	</testsuite>
-	<testsuite name="BoundedQueue Signature Tests" tests="12">
-		<testcase classname="BoundedQueue Signature Tests" name="test_bounded_queue_value_type_is_value"/>
-		<testcase classname="BoundedQueue Signature Tests" name="test_bounded_queue_reference_type_is_reference"/>
-		<testcase classname="BoundedQueue Signature Tests" name="test_bounded_queue_const_reference_type_is_const_reference"/>
-		<testcase classname="BoundedQueue Signature Tests" name="test_bounded_queue_size_type_is_size_t"/>
-		<testcase classname="BoundedQueue Signature Tests" name="test_const_bounded_queue_type_of_empty_is_bool"/>
-		<testcase classname="BoundedQueue Signature Tests" name="test_const_bounded_queue_type_of_full_is_bool"/>
-		<testcase classname="BoundedQueue Signature Tests" name="test_bounded_queue_pop_type_is_value_type"/>
-		<testcase classname="BoundedQueue Signature Tests" name="test_const_bounded_queue_type_of_size_is_size_t"/>
-		<testcase classname="BoundedQueue Signature Tests" name="test_bounded_queue_type_of_push_of_const_lvalue_is_void"/>
-		<testcase classname="BoundedQueue Signature Tests" name="test_bounded_queue_type_of_push_of_rvalue_is_void"/>
-		<testcase classname="BoundedQueue Signature Tests" name="test_bounded_queue_type_of_pop_is_value_type"/>
-		<testcase classname="BoundedQueue Signature Tests" name="test_bounded_queue_type_of_swap_is_void"/>
+	<testsuite name="BoundedQueue API Tests" tests="12">
+		<testcase classname="BoundedQueue API Tests" name="test_bounded_queue_value_type_is_value"/>
+		<testcase classname="BoundedQueue API Tests" name="test_bounded_queue_reference_type_is_reference"/>
+		<testcase classname="BoundedQueue API Tests" name="test_bounded_queue_const_reference_type_is_const_reference"/>
+		<testcase classname="BoundedQueue API Tests" name="test_bounded_queue_size_type_is_size_t"/>
+		<testcase classname="BoundedQueue API Tests" name="test_const_bounded_queue_type_of_empty_is_bool"/>
+		<testcase classname="BoundedQueue API Tests" name="test_const_bounded_queue_type_of_full_is_bool"/>
+		<testcase classname="BoundedQueue API Tests" name="test_bounded_queue_pop_type_is_value_type"/>
+		<testcase classname="BoundedQueue API Tests" name="test_const_bounded_queue_type_of_size_is_size_t"/>
+		<testcase classname="BoundedQueue API Tests" name="test_bounded_queue_type_of_push_of_const_lvalue_is_void"/>
+		<testcase classname="BoundedQueue API Tests" name="test_bounded_queue_type_of_push_of_rvalue_is_void"/>
+		<testcase classname="BoundedQueue API Tests" name="test_bounded_queue_type_of_pop_is_value_type"/>
+		<testcase classname="BoundedQueue API Tests" name="test_bounded_queue_type_of_swap_is_void"/>
 	</testsuite>
 	<testsuite name="BoundedQueue Default Behavior Tests" tests="6">
 		<testcase classname="BoundedQueue Default Behavior Tests" name="test_int_queue_of_capacity_thousand_is_empty"/>
@@ -37,6 +33,22 @@
 		<testcase classname="BoundedQueue Content Tests" name="test_queue_wrap_around_behavior_pop"/>
 		<testcase classname="BoundedQueue Content Tests" name="test_queue_after_swap_this_has_argument_content"/>
 		<testcase classname="BoundedQueue Content Tests" name="test_queue_after_swap_argument_has_this_content"/>
+	</testsuite>
+	<testsuite name="BoundedQueue Semantic Tests" tests="14">
+		<testcase classname="BoundedQueue Semantic Tests" name="test_queue_push_moves_element"/>
+		<testcase classname="BoundedQueue Semantic Tests" name="test_queue_push_copies_element"/>
+		<testcase classname="BoundedQueue Semantic Tests" name="test_element_in_queue_is_copied_along_copy_constructor"/>
+		<testcase classname="BoundedQueue Semantic Tests" name="test_element_in_queue_is_copied_along_assignment_operator"/>
+		<testcase classname="BoundedQueue Semantic Tests" name="test_element_in_queue_is_moved_along_move_constructor"/>
+		<testcase classname="BoundedQueue Semantic Tests" name="test_element_in_queue_is_moved_along_assignment_operator"/>
+		<testcase classname="BoundedQueue Semantic Tests" name="test_element_in_queue_is_copied_along_assignment_operator_multiple_copies"/>
+		<testcase classname="BoundedQueue Semantic Tests" name="test_element_in_queue_is_moved_along_assignment_operator_multiple_moves"/>
+		<testcase classname="BoundedQueue Semantic Tests" name="test_element_queue_copy_is_returned_from_assignment"/>
+		<testcase classname="BoundedQueue Semantic Tests" name="test_element_queue_moved_is_returned_from_assignment"/>
+		<testcase classname="BoundedQueue Semantic Tests" name="test_capacity_is_copied_in_ctor"/>
+		<testcase classname="BoundedQueue Semantic Tests" name="test_capacity_is_copied_in_assignment"/>
+		<testcase classname="BoundedQueue Semantic Tests" name="test_capacity_is_moved_in_ctor"/>
+		<testcase classname="BoundedQueue Semantic Tests" name="test_capacity_is_moved_in_assignment"/>
 	</testsuite>
 	<testsuite name="BoundedQueue Student Tests" tests="0">
 	</testsuite>
@@ -69,5 +81,51 @@
 		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_self_move_assignment_no_move_construction"/>
 		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_copy_assignment_deletes_previous_elements"/>
 		<testcase classname="BoundedQueue Non-Default-Constructible Element Type Tests" name="test_move_assignment_deletes_previous_elements_upon_destruction"/>
+	</testsuite>
+	<testsuite name="BoundedQueue Single Threaded Lock Tests" tests="36">
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_push_rvalue_aquires_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_push_rvalue_releases_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_push_lvalue_aquires_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_push_lvalue_releases_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_pop_aquires_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_pop_releases_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_empty_aquires_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_empty_releases_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_full_aquires_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_full_releases_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_size_aquires_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_size_releases_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_swap_aquires_both_locks"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_swap_releases_two_locks"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_try_push_rvalue_aquires_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_try_push_rvalue_releases_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_try_push_lvalue_aquires_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_try_push_lvalue_releases_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_try_pop_aquires_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_try_pop_releases_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_swap_aquires_tries_multiple_times_to_try_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_swap_successful_after_delayed_lock"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_no_lock_on_size_constructor"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_no_unlock_on_size_constructor"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_symmetric_lock_and_unlock_on_copy_constructor"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_symmetric_lock_and_unlock_on_move_constructor"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_symmetric_lock_and_unlock_on_copy_assignment"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_symmetric_lock_and_unlock_on_move_assignment"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_try_push_for_aquires_lock_on_empty_queue"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_try_push_for_releases_lock_on_empty_queue"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_try_pop_for_aquires_lock_on_empty_queue"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_try_pop_for_releases_lock_on_empty_queue"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_try_push_for_aquires_lock_on_full_queue"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_try_push_for_releases_lock_on_full_queue"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_try_pop_for_aquires_lock_on_full_queue"/>
+		<testcase classname="BoundedQueue Single Threaded Lock Tests" name="test_try_pop_for_releases_lock_on_full_queue"/>
+	</testsuite>
+	<testsuite name="BoundedQueue Multi-Threaded Tests" tests="6">
+		<testcase classname="BoundedQueue Multi-Threaded Tests" name="test_one_producer_and_one_consumer"/>
+		<testcase classname="BoundedQueue Multi-Threaded Tests" name="test_two_producers_and_one_consumer"/>
+		<testcase classname="BoundedQueue Multi-Threaded Tests" name="test_one_producer_two_consumers"/>
+		<testcase classname="BoundedQueue Multi-Threaded Tests" name="test_ten_producers_ten_consumers"/>
+		<testcase classname="BoundedQueue Multi-Threaded Tests" name="test_blocked_produced_unblocks"/>
+		<testcase classname="BoundedQueue Multi-Threaded Tests" name="test_blocked_consumer_unblocks"/>
 	</testsuite>
 </testsuites>

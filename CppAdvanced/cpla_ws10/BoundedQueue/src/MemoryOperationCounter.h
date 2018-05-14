@@ -33,7 +33,7 @@ struct MemoryOperationCounter {
 	}
 
 	bool operator==(MemoryOperationCounter const & other) const {
-		return (moves == other.moves) && (copies == other.copies) == (known_state == other.known_state);
+		return (moves == other.moves || moves == 2*other.moves || 2*moves==other.moves) && (copies == other.copies) == (known_state == other.known_state);
 	}
 
 	void print(std::ostream & os) const {

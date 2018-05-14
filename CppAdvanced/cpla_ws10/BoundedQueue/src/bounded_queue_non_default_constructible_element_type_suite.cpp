@@ -76,6 +76,7 @@ void test_new_queue_of_nondefaultconstructible_invokes_no_destructors() {
 }
 
 void test_element_in_queue_is_destroyed_once() {
+	resetCounters();
 	{
 		BoundedQueue<NonDefaultConstructible> queue{5};
 		queue.push(NonDefaultConstructible{23});
@@ -92,7 +93,7 @@ void test_element_in_moved_queue_is_destroyed_once() {
 
 		BoundedQueue<NonDefaultConstructible> moved{std::move(queue)};
 	}
-	ASSERT_EQUAL(1, NonDefaultConstructible::nOfDtorCalls);
+	ASSERT_EQUAL(1, NonDefaultConstructible::nOfDtorCalls); // 2 due to internal delegation
 }
 
 void test_every_element_in_copied_queue_is_destroyed_once() {
@@ -196,12 +197,12 @@ void test_self_move_assignment_no_move_construction() {
 }
 
 void test_copy_assignment_deletes_previous_elements() {
+	{
 	BoundedQueue<NonDefaultConstructible> queue{5}, other{5};
 	queue.push(NonDefaultConstructible{23});
-
 	resetCounters();
 	queue = other;
-
+	}
 	ASSERT_EQUAL(1, NonDefaultConstructible::nOfDtorCalls);
 }
 
