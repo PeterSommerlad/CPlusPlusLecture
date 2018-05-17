@@ -1,0 +1,8 @@
+<testsuites>
+	<testsuite name="AllTests" tests="4">
+		<testcase classname="AllTests" name="CompareWaitsWithNotifies"/>
+		<testcase classname="AllTests" name="CompareWaitsWithNotifiesCRTP"/>
+		<testcase classname="AllTests" name="DemonstrateRegular"/>
+		<testcase classname="AllTests" name="DemonstrateNaiveScopeExitProblem"/>
+	</testsuite>
+</testsuites>

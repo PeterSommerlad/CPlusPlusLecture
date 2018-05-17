@@ -1,0 +1,9 @@
+<testsuites>
+	<testsuite name="AllTests" tests="5">
+		<testcase classname="AllTests" name="testEmptyTraits"/>
+		<testcase classname="AllTests" name="demonstrateEBOsimple"/>
+		<testcase classname="AllTests" name="demonstrate_type_queries"/>
+		<testcase classname="AllTests" name="demonstrate_type_composition"/>
+		<testcase classname="AllTests" name="testAWaitCounterUnit"/>
+	</testsuite>
+</testsuites>
