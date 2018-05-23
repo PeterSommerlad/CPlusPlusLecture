@@ -1,9 +1,8 @@
-#include "cute.h"
-#include "ide_listener.h"
-#include "xml_listener.h"
-#include "cute_runner.h"
+#ifndef SRC_PSST_H_
+#define SRC_PSST_H_
 
-
+#include <type_traits>
+#include <ostream>
 namespace Psst{
 
 
@@ -23,7 +22,7 @@ struct ops:BS<U>...{};
 
 
 template <typename V, typename TAG>
-struct Unit {
+struct strong {
 	static_assert(std::is_object_v<V>,"must keep real values");
 	V val;
 };
@@ -31,7 +30,7 @@ struct Unit {
 
 
 template <typename U>
-struct is_unit{
+struct is_strong{
 	template<typename T>
 	static char test(decltype(T::val)*);
 	template<typename T>
@@ -40,12 +39,12 @@ struct is_unit{
 };
 
 template<typename U>
-constexpr inline  bool is_strong_v=is_unit<U>::value;
+constexpr inline  bool is_strong_v=is_strong<U>::value;
 
 
 static_assert(!is_strong_v<int>,"int is no unit");
 namespace _____testing_____{
-struct bla:Unit<int,bla>{};
+struct bla:strong<int,bla>{};
 static_assert(is_strong_v<bla>,"bla is a unit");
 }
 
@@ -185,6 +184,7 @@ struct Add {
 		return l+=r;
 	}
 };
+//todo other useful arithmetic
 
 template <typename U>
 struct Out {
@@ -193,45 +193,7 @@ struct Out {
 		return l << r.val;
 	}
 };
-
-struct WaitC:Unit<unsigned,WaitC>, ops<WaitC,Out,Add,Inc,Eq,EqWith<unsigned>::apply>
-{
-};
-static_assert(is_strong_v<WaitC>,"should be a unit");
-static_assert(sizeof(WaitC)==sizeof(unsigned),"works?");
-static_assert(std::is_trivial_v<WaitC>,"standard layout");
-}
-
-void testAWaitCounterUnit(){
-	using namespace Psst;
-	WaitC wc{42};
-	++wc;
-	ASSERT_EQUAL(43u,wc);
-	ASSERT(wc!=42u);
-	ASSERT_EQUAL(WaitC{43},wc);
-}
-void testAddingWaitCounter(){
-	using namespace Psst;
-	WaitC wc{42};
-	wc += WaitC{42u};
-	wc = wc + wc;
-	ASSERT_EQUAL(168u,wc);
 }
 
 
-
-bool runAllTests(int argc, char const *argv[]) {
-	cute::suite s { };
-	//TODO add your test here
-	s.push_back(CUTE(testAWaitCounterUnit));
-	s.push_back(CUTE(testAddingWaitCounter));
-	cute::xml_file_opener xmlfile(argc, argv);
-	cute::xml_listener<cute::ide_listener<>> lis(xmlfile.out);
-	auto runner = cute::makeRunner(lis, argc, argv);
-	bool success = runner(s, "AllTests");
-	return success;
-}
-
-int main(int argc, char const *argv[]) {
-    return runAllTests(argc, argv) ? EXIT_SUCCESS : EXIT_FAILURE;
-}
+#endif /* SRC_PSST_H_ */

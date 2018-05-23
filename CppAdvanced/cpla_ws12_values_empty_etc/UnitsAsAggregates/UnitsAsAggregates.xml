@@ -1,5 +1,6 @@
 <testsuites>
-	<testsuite name="AllTests" tests="1">
+	<testsuite name="AllTests" tests="2">
 		<testcase classname="AllTests" name="testAWaitCounterUnit"/>
+		<testcase classname="AllTests" name="testAddingWaitCounter"/>
 	</testsuite>
 </testsuites>

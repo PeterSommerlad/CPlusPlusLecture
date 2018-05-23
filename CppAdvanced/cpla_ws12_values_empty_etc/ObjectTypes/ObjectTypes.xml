@@ -1,0 +1,12 @@
+<testsuites>
+	<testsuite name="AllTests" tests="8">
+		<testcase classname="AllTests" name="poly::testRect"/>
+		<testcase classname="AllTests" name="poly::testCircle"/>
+		<testcase classname="AllTests" name="poly::testPolyScreenManager"/>
+		<testcase classname="AllTests" name="poly::testComposite"/>
+		<testcase classname="AllTests" name="sean::testRect"/>
+		<testcase classname="AllTests" name="sean::testCircle"/>
+		<testcase classname="AllTests" name="sean::testComposite"/>
+		<testcase classname="AllTests" name="sean::testPolyScreenManager"/>
+	</testsuite>
+</testsuites>
