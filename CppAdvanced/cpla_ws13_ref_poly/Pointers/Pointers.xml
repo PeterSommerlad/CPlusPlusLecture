@@ -1,0 +1,7 @@
+<testsuites>
+	<testsuite name="AllTests" tests="3">
+		<testcase classname="AllTests" name="thisIsATest"/>
+		<testcase classname="AllTests" name="testDemo"/>
+		<testcase classname="AllTests" name="testDont"/>
+	</testsuite>
+</testsuites>

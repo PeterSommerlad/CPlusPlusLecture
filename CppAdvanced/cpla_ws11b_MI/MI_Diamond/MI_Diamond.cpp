@@ -8,14 +8,14 @@ struct Building {
 	std::string location;
 };
 
-struct Skyscraper: public Building {
+struct Skyscraper: public virtual Building {
 	Skyscraper(std::string const & location, unsigned height) :
 			Building { location }, height { height } {
 	}
 	unsigned height;
 };
 
-struct Hotel: public Building {
+struct Hotel: public /*virtual*/ Building {
 	Hotel(std::string const & location, unsigned rooms) :
 			Building { location }, rooms { rooms } {
 	}
@@ -23,7 +23,7 @@ struct Hotel: public Building {
 };
 
 struct SkyscraperHotel: public Skyscraper, public Hotel {
-	SkyscraperHotel() :
+	SkyscraperHotel() : Building{"here"},
 			Skyscraper("somewhere", 100), Hotel("elsewhere", 200) {
 	}
 };
