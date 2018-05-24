@@ -22,7 +22,7 @@ struct ops:BS<U>...{};
 
 
 template <typename V, typename TAG>
-struct strong {
+struct strong { // can not merge ops here, because of initializers required for bases depending on incomplete type
 	static_assert(std::is_object_v<V>,"must keep real values");
 	V val;
 };
@@ -44,7 +44,7 @@ constexpr inline  bool is_strong_v=is_strong<U>::value;
 
 static_assert(!is_strong_v<int>,"int is no unit");
 namespace _____testing_____{
-struct bla:strong<int,bla>{};
+struct bla:strong<int,bla>,ops<bla>{};
 static_assert(is_strong_v<bla>,"bla is a unit");
 }
 

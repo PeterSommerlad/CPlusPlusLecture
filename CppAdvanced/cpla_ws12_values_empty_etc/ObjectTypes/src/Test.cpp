@@ -6,6 +6,12 @@
 #include <vector>
 #include <memory>
 
+#include <functional>
+
+#include <utility>
+
+#include <sstream>
+
 struct Width:Psst::strong<int,Width>,Psst::ops<Width,Psst::Out>{};
 struct Height:Psst::strong<int,Height>,Psst::ops<Height,Psst::Out>{};
 struct Radius:Psst::strong<int,Radius>,Psst::ops<Radius,Psst::Out>{};
@@ -49,8 +55,25 @@ struct composite:drawable{
 	}
 	void draw(screen &on){
 		on << "{ ";
-		for(auto &drawable:content){
-			drawable->draw(on);
+		for(auto &w:content){
+			w->draw(on);
+		}
+		on << " }";
+	}
+private:
+	widgets content{};
+};
+struct refcomposite:drawable{
+	using widget=std::reference_wrapper<drawable>;
+	using widgets=std::vector<widget>;
+	refcomposite()=default;
+	void add(widget w){
+		content.push_back(w);
+	}
+	void draw(screen &on){
+		on << "{ ";
+		for(drawable& w:content){
+			w.draw(on);
 		}
 		on << " }";
 	}
@@ -76,6 +99,16 @@ void testComposite(){
 	c.add(std::make_unique<circle>(Radius{42}));
 	c.add(std::make_unique<rect>(Width{4},Height{2}));
 	c.add(std::make_unique<circle>(Radius{4}));
+	c.draw(out);
+	ASSERT_EQUAL("{ circle:42rectangle:4,2circle:4 }",out.str());
+}
+void testRefComposite(){
+	std::ostringstream out{};
+	circle c1{Radius{42}};
+	rect r1{Width{4},Height{2}};
+	circle c2{Radius{4}};
+	refcomposite c{};
+	c.add(c1);c.add(r1);c.add(c2);
 	c.draw(out);
 	ASSERT_EQUAL("{ circle:42rectangle:4,2circle:4 }",out.str());
 }
@@ -271,6 +304,7 @@ bool runAllTests(int argc, char const *argv[]) {
 	s.push_back(CUTE(poly::testCircle));
 	s.push_back(CUTE(poly::testPolyScreenManager));
 	s.push_back(CUTE(poly::testComposite));
+	s.push_back(CUTE(poly::testRefComposite));
 	s.push_back(CUTE(sean::testRect));
 	s.push_back(CUTE(sean::testCircle));
 	s.push_back(CUTE(sean::testComposite));
