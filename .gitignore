@@ -34,7 +34,7 @@ Release
 *Test.xml
 .*.html
 /**/.settings/*
-!language.settings.xml
+#!language.settings.xml
 
 
 # Mac OS Meta Files
