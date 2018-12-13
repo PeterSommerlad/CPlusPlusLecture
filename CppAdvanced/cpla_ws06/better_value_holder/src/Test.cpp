@@ -147,7 +147,7 @@ private:
 	}
 };
 
-void thisIsATest() {
+void testPrintAllWithoutArgument() {
 	value_holder i{}; // empty
 	ASSERTM("value is undefined", !static_cast<bool>(i));
 }
@@ -259,7 +259,7 @@ void testLvalueArgumentForAssignment() {
 void runAllTests(int argc, char const *argv[]) {
 	cute::suite s;
 	//TODO add your test here
-	s.push_back(CUTE(thisIsATest));
+	s.push_back(CUTE(testPrintAllWithoutArgument));
 	s.push_back(CUTE(testWithValue));
 	s.push_back(CUTE(testWithReassign));
 	s.push_back(CUTE(testMoveCtor));
