@@ -5,7 +5,7 @@
 
 using level_result = std::vector<module::spm>;
 struct deep_name_compare{
-bool operator()(spm const &l, spm const &r){
+bool operator()(spm const &l, spm const &r) const {
 	if (l && r){
 		return *l < *r;
 	}
